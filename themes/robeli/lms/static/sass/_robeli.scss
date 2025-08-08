@@ -1,0 +1,38 @@
+$robeli-primary: #4f46e5; // indigo-600
+$robeli-accent: #06b6d4;  // cyan-500
+$robeli-bg: #0b1020;
+$robeli-surface: #121a2b;
+$robeli-text: #e5e7eb;
+$robeli-muted: #9ca3af;
+
+body {
+  background: linear-gradient(180deg, $robeli-bg 0%, darken($robeli-bg, 4%) 100%);
+  color: $robeli-text;
+}
+
+.navbar, .header, .footer {
+  background-color: $robeli-surface !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $robeli-primary, $robeli-accent);
+  border: none;
+  color: white;
+  box-shadow: 0 8px 16px rgba(79,70,229,0.35);
+}
+
+.card, .panel {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+}
+
+input, select, textarea {
+  background-color: $robeli-surface;
+  color: $robeli-text;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+a { color: $robeli-accent; }

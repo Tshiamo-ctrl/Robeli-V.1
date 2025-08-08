@@ -29,7 +29,7 @@ from xmodule.tests.helpers import StubUserService
 from . import get_test_system
 
 
-@override_settings(LMS_BASE="edx.org")
+@override_settings(LMS_BASE="robeli.com")
 class LTIBlockTest(TestCase):
     """Logic tests for LTI block."""
 

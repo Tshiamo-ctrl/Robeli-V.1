@@ -73,7 +73,7 @@ metadata:
 
         Include an image by using the following macro:
 
-        \edXxml{<img src="https://courses.edx.org/static/images/placeholder-image.png"/>}
+        \edXxml{<img src="https://courses.robeli.com/static/images/placeholder-image.png"/>}
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \subsection{Example show/hide explanation}
@@ -96,8 +96,8 @@ data: |
       </p>
       <p>
           For more information, see
-          <a href="https://docs.openedx.org/en/latest/educators/how-tos/course_development/exercise_tools/create_problem_in_latex.html" target="_blank">
-          Problem Written in LaTeX</a> in <i>Building and Running an Open edX Course</i>.
+          <a href="https://intranet.robeli.com/docs/educators/latex-problems" target="_blank">
+          Problem Written in LaTeX</a> in <i>Building and Running a Robeli Course</i>.
       </p>
       <p>You can use the following example problems as models.</p>
       <p><strong>Example Option Problem</strong></p>

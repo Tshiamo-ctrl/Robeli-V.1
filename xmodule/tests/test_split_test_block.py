@@ -85,7 +85,7 @@ class SplitTestBlockTest(XModuleXmlImportTest, PartitionTestCase):
 
         self.course = self.process_xml(course)
         self.course_sequence = self.course.get_children()[0]
-        user = Mock(username='ma', email='ma@edx.org', is_staff=False, is_active=True)
+        user = Mock(username='ma', email='ma@robeli.com', is_staff=False, is_active=True)
         prepare_block_runtime(self.course.runtime, user=user, add_get_block=True)
 
         self.course.runtime.export_fs = MemoryFS()

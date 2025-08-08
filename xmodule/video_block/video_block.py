@@ -7,9 +7,9 @@ in-browser HTML5 video method (when in HTML5 mode).
 - Navigational subtitles can be disabled altogether via an attribute
 in XML.
 Examples of html5 videos for manual testing:
-    https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.mp4
-    https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.webm
-    https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.ogv
+    https://cdn.robeli.com/course-videos/intro/robeli-intro-1_100.mp4
+    https://cdn.robeli.com/course-videos/intro/robeli-intro-1_100.webm
+    https://cdn.robeli.com/course-videos/intro/robeli-intro-1_100.ogv
 """
 
 

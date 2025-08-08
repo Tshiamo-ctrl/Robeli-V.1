@@ -1,7 +1,7 @@
 {
-  "name": "edx",
+  "name": "robeli-platform",
   "version": "0.1.0",
-  "repository": "https://github.com/openedx/edx-platform",
+  "repository": "https://intranet.robeli.com/git/robeli-platform",
   "scripts": {
     "postinstall": "scripts/copy-node-modules.sh",
     "build": "npm run webpack && npm run compile-sass",
