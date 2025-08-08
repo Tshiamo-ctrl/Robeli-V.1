@@ -10,7 +10,7 @@ Decisions
 ---------
 
 * We will deprecate and remove the `django-ratelimit-backend`_ from
-  edx-platform. This library is currently not being actively developed and is
+  robeli-platform. This library is currently not being actively developed and is
   looking for a new maintainer.  It is also very specific to rate limiting the
   authentication backend and so can't easily be applied more generally.
 
@@ -27,7 +27,7 @@ Decisions
 Context
 -------
 
-edx-platform currently uses multiple different ratelimiting tools which can
+robeli-platform currently uses multiple different ratelimiting tools which can
 lead to confusion and difficulty understanding how endpoints are secured.
 Consider the following case study in how our login endpoints are currently rate
 limitied.
@@ -38,7 +38,7 @@ Rate limiting Logins
 1st party vs 3rd party login
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-edx-platform allows for both 1st party auth, where you provide the LMS with
+robeli-platform allows for both 1st party auth, where you provide the LMS with
 your credentials and it gives you back some session tokens, and also 3rd party
 auth, in which you are directed to a 3rd party to authenticate and then
 redirected to the LMS with a token from that third party which is exchanged for
@@ -97,7 +97,7 @@ part of the login flow.
   edx.org has the ``MAX_FAILED_LOGIN_ATTEMPTS`` feature enabled.
 
 * `cloudflare rate limiting`_ - This is edx.org specific and not enabled by
-  default for Open edX.
+  default for Robeli.
 
 Ratelimiting other endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,5 +110,5 @@ how and when we should be using different libraries.
 .. _django-ratelimit: https://django-ratelimit.readthedocs.io/en/stable/usage.html#usage-chapter
 .. _django-ratelimit-backend: https://django-ratelimit-backend.readthedocs.io/en/latest/
 .. _djangorestframework rate limiting: https://www.django-rest-framework.org/api-guide/throttling/
-.. _MAX_FAILED_LOGIN_ATTEMPTS: https://github.com/openedx/edx-platform/blob/cd6064692681ab99912e3da3721cd857a0b313e9/common/djangoapps/student/models.py#L980
+.. _MAX_FAILED_LOGIN_ATTEMPTS: https://intranet.robeli.com/git/robeli-platform/blob/cd6064692681ab99912e3da3721cd857a0b313e9/common/djangoapps/student/models.py#L980
 .. _cloudflare rate limiting: https://www.cloudflare.com/rate-limiting/

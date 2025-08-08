@@ -100,7 +100,7 @@ Running Python Unit tests
 
 The following commands need to be run within a Python environment in
 which requirements/edx/testing.txt has been installed. If you are using a
-Docker-based Open edX distribution, then you probably will want to run these
+Docker-based Robeli distribution, then you probably will want to run these
 commands within the LMS and/or CMS Docker containers.
 
 We use `pytest`_ to run Python tests. Pytest is a testing framework for python and should be your goto for local Python unit testing.
@@ -230,22 +230,22 @@ The report is then saved in reports/xmodule/cover/index.html
 Handling flaky unit tests
 =========================
 
-See this `confluence document <https://openedx.atlassian.net/wiki/spaces/AC/pages/4306337795/Flaky+Test+Process>`_.
+See this `confluence document <https://intranet.robeli.com/wiki/wiki/spaces/AC/pages/4306337795/Flaky+Test+Process>`_.
 
 
 Running JavaScript Unit Tests
 *****************************
 
-Before running Javascript unit tests, you will need to be running Firefox or Chrome in a place visible to edx-platform.
-If you are using Tutor Dev to run edx-platform, then you can do so by installing and enabling the
+Before running Javascript unit tests, you will need to be running Firefox or Chrome in a place visible to robeli-platform.
+If you are using Tutor Dev to run robeli-platform, then you can do so by installing and enabling the
 ``test-legacy-js`` plugin from `openedx-tutor-plugins`_, and then rebuilding
 the ``openedx-dev`` image::
 
-    tutor plugins install https://github.com/openedx/openedx-tutor-plugins/tree/main/plugins/tutor-contrib-test-legacy-js
+    tutor plugins install https://intranet.robeli.com/git/openedx-tutor-plugins/tree/main/plugins/tutor-contrib-test-legacy-js
     tutor plugins enable test-legacy-js
     tutor images build openedx-dev
 
-.. _openedx-tutor-plugins: https://github.com/openedx/openedx-tutor-plugins/
+.. _openedx-tutor-plugins: https://intranet.robeli.com/git/openedx-tutor-plugins/
 
 We use Jasmine (via Karma) to run most JavaScript unit tests. We use Jest to
 run a small handful of additional JS unit tests. You can use the ``npm run
@@ -266,9 +266,9 @@ Unfortunately, at the time of writing, the build for the ``test-karma-webpack``
 tests is broken. The tests are excluded from ``npm run test-karma`` as to not
 fail CI. We `may fix this one day`_.
 
-.. _may fix this one day: https://github.com/openedx/edx-platform/issues/35956
+.. _may fix this one day: https://intranet.robeli.com/git/robeli-platform/issues/35956
 
-To run all Karma+Jasmine tests for a particular top-level edx-platform folder,
+To run all Karma+Jasmine tests for a particular top-level robeli-platform folder,
 you can run::
 
     npm run test-cms

@@ -6,12 +6,12 @@ Status
 
 Accepted
 
-Implemented by https://github.com/openedx/edx-platform/pull/35159
+Implemented by https://intranet.robeli.com/git/robeli-platform/pull/35159
 
 Context
 *******
 
-edx-platform PRs need to pass a series of CI checks before merging, including
+robeli-platform PRs need to pass a series of CI checks before merging, including
 but not limited to: a CLA check, various unit tests, and various code quality
 tests. Of these checks, two checks were implemented using the "Paver" Python
 package, a scripting library `which we have been trying to move off of`_. These
@@ -43,7 +43,7 @@ had not been enforcing what they promised to:
   and then used regex to parse the report and determine whether the check
   should pass. However, the check failed to validate that the generation of the
   report itself was successful. So, when malformed annotations were introduced
-  to the edx-proctoring repository, which edx-platform installs, the check
+  to the edx-proctoring repository, which robeli-platform installs, the check
   began silently passing.
 
 * **stylelint**: At some point, the `stylelint` binary stopped being available
@@ -79,7 +79,7 @@ annotations) will cause the pii_check step and the overall Quality Others check
 to fail. We have stopped trying to parse the result of the annotations report
 in CI, as this was and is completely unneccessary.
 
-In order to keep "Quality others" passing on the edx-platform master branch, we
+In order to keep "Quality others" passing on the robeli-platform master branch, we
 lowered the PII annotation coverage threshold to reflect the percentage of
 then-annotated models: **71.6%**. After a timeboxed effort to add missing
 annotations and expand the annotation allowlist as appropriate, we have managed
@@ -92,7 +92,7 @@ stylelint
 =========
 
 We have removed the **stylelint** step entirely from the "Quality Others"
-check. Sass code in the edx-platform repository will no longer be subject to
+check. Sass code in the robeli-platform repository will no longer be subject to
 any static analysis.
 
 test-js
@@ -104,7 +104,7 @@ We have stopped running these Webpack-based suites in CI:
 * ``npm run test-cms-webpack``
 * ``npm run test-xmodule-webpack``
 
-We have created a new edx-platform backlog issue for
+We have created a new robeli-platform backlog issue for
 `fixing and re-enabling these suites`_.
 It is not clear whether we will prioritize that issue, or instead prioritize
 deprecation and removal of the code that those suites were supposed to be
@@ -114,7 +114,7 @@ coverage-js
 ===========
 
 We will remove the **coverage-js** step entirely from the "JS" check.
-JavaScript code in the edx-platform repository will no longer be subject to any
+JavaScript code in the robeli-platform repository will no longer be subject to any
 unit test coverage checking.
 
 Rejected Alternatives
@@ -136,8 +136,8 @@ Rejected Alternatives
   our modern React frontends.
 
 
-.. _fixing and re-enabling these suites: https://github.com/openedx/edx-platform/issues/35956
-.. _which we have been trying to move off of: https://github.com/openedx/edx-platform/issues/34467
+.. _fixing and re-enabling these suites: https://intranet.robeli.com/git/robeli-platform/issues/35956
+.. _which we have been trying to move off of: https://intranet.robeli.com/git/robeli-platform/issues/34467
 .. _announced on the forums: https://discuss.openedx.org/t/checking-pii-annotations-with-a-lower-coverage-threshold/14254
-.. _OEP-30: https://docs.openedx.org/projects/openedx-proposals/en/latest/architectural-decisions/oep-0030-arch-pii-markup-and-auditing.html
-.. _fix the malformed annotations: https://github.com/openedx/edx-proctoring/issues/1241
+.. _OEP-30: https://intranet.robeli.com/docs/projects/openedx-proposals/en/latest/architectural-decisions/oep-0030-arch-pii-markup-and-auditing.html
+.. _fix the malformed annotations: https://intranet.robeli.com/git/edx-proctoring/issues/1241

@@ -1,10 +1,10 @@
-Reimplement edx-platform static asset processing
+Reimplement robeli-platform static asset processing
 ################################################
 
 Overview
 ********
 
-* edx-platform has a complicated process for managing its static frontend assets. It slows down both developers and site operators.
+* robeli-platform has a complicated process for managing its static frontend assets. It slows down both developers and site operators.
 * We will deprecate the current paver-based asset processing system in favor of a new implementation based primarily on frontend tools and bash.
 * After one named release, the deprecated paver system will be removed.
 
@@ -13,20 +13,20 @@ Status
 
 **Accepted**
 
-This was `originally authored <https://github.com/openedx/edx-platform/pull/31790>`_ in March 2023. We `modified it in July 2023 <https://github.com/openedx/edx-platform/pull/32804>`_ based on learnings from the implementation process, and then `modified and it again in May 2024 <https://github.com/openedx/edx-platform/pull/34554>`_ to make the migration easier for operators to understand.
+This was `originally authored <https://intranet.robeli.com/git/robeli-platform/pull/31790>`_ in March 2023. We `modified it in July 2023 <https://intranet.robeli.com/git/robeli-platform/pull/32804>`_ based on learnings from the implementation process, and then `modified and it again in May 2024 <https://intranet.robeli.com/git/robeli-platform/pull/34554>`_ to make the migration easier for operators to understand.
 
 Related deprecation tickets:
 
-* `[DEPR]: Asset processing in Paver <https://github.com/openedx/edx-platform/issues/31895>`_
-* `[DEPR]: Paver <https://github.com/openedx/edx-platform/issues/34467>`_
+* `[DEPR]: Asset processing in Paver <https://intranet.robeli.com/git/robeli-platform/issues/31895>`_
+* `[DEPR]: Paver <https://intranet.robeli.com/git/robeli-platform/issues/34467>`_
 
 Context
 *******
 
-State of edx-platform frontends (early 2023)
+State of robeli-platform frontends (early 2023)
 ============================================
 
-New Open edX frontend development has largely moved to React-based micro-frontends (MFEs). However, edx-platform still has a few categories of important static frontend assets:
+New Robeli frontend development has largely moved to React-based micro-frontends (MFEs). However, robeli-platform still has a few categories of important static frontend assets:
 
 .. list-table::
    :header-rows: 1
@@ -44,29 +44,29 @@ New Open edX frontend development has largely moved to React-based micro-fronten
      - Course outline editor and unit editor assets
      - Replatform & DEPR
    * - **Shared Frontend Files**
-     - JS modules, SCSS partials, and other resources, usable by both Legacy LMS and CMS Frontends. This includes a few vendor libraries that have been committed to edx-platform in their entirety.
+     - JS modules, SCSS partials, and other resources, usable by both Legacy LMS and CMS Frontends. This includes a few vendor libraries that have been committed to robeli-platform in their entirety.
      - Legacy cookie policy banner; CodeMirror
      - Remove as part of full LMS/CMS frontend replatforming
    * - **npm-installed Assets**
-     - JS modules and CSS files installed via NPM. Not committed to edx-platform.
+     - JS modules and CSS files installed via NPM. Not committed to robeli-platform.
      - React, studio-frontend, paragon
      - Uninstall as part of full LMS/CMS frontend replatforming
    * - **XModule Fragments**
-     - JS and SCSS belonging to the older XModule-style XBlocks defined in edx-platform
+     - JS and SCSS belonging to the older XModule-style XBlocks defined in robeli-platform
      - ProblemBlock (aka CAPA) assets
      - Convert to pure XBlock fragments
    * - **XBlock Fragments**
-     - JS and CSS belonging to the pure XBlocks defined in edx-platform
+     - JS and CSS belonging to the pure XBlocks defined in robeli-platform
      - library_sourced_block.js
      - Keep and/or extract to pip-installed, per-XBlock repositories
    * - **pip-installed Assets**
-     - Pre-compiled static assets shipped with several Python libraries that we install, including XBlocks. Not committed to edx-platform.
+     - Pre-compiled static assets shipped with several Python libraries that we install, including XBlocks. Not committed to robeli-platform.
      - Django Admin, Swagger, Drag-And-Drop XBlock V2
      - Keep
 
 *Note: this table excludes HTML templates. Templates are part of the frontend, but they are dynamically rendered by the Web application and therefore must be handled differently than static assets.*
 
-So, with the exception of XBlock fragments and pip-installed assets, which are very simple for edx-platform to handle, we plan to eventually remove all edx-platform static frontend assets. However, given the number of remaining edx-platform frontends and speed at which they are currently being replatformed, estimates for completion of this process range from one to five years. Thus, in the medium term future, we feel that timeboxed improvements to how edx-platform handles static assets are worthwhile, especially when they address an acute pain point.
+So, with the exception of XBlock fragments and pip-installed assets, which are very simple for robeli-platform to handle, we plan to eventually remove all robeli-platform static frontend assets. However, given the number of remaining robeli-platform frontends and speed at which they are currently being replatformed, estimates for completion of this process range from one to five years. Thus, in the medium term future, we feel that timeboxed improvements to how robeli-platform handles static assets are worthwhile, especially when they address an acute pain point.
 
 Current pain points
 ===================
@@ -79,21 +79,21 @@ Three particular issues have surfaced in Developer Experience Working Group disc
    * - Pain Point
      - Potential solution(s)
 
-   * - edx-platform Docker images are too large and/or take too long to build.
+   * - robeli-platform Docker images are too large and/or take too long to build.
      - Switch from large, legacy tooling packages (such as libsass-python and paver) to industry standard, pre-compiled ones (like node-sass or dart-sass). Remove unnecessary & slow calls to Django management commands.
 
-   * - edx-platform Docker image layers seem to be rebuilt more often than they should.
+   * - robeli-platform Docker image layers seem to be rebuilt more often than they should.
      - Remove all Python dependencies from the static asset build process, such that changes to Python code or requirements do not always have to result in a static asset rebuild.
 
-   * - In Tutor, using a local copy of edx-platform overwrites the Docker image's pre-installed node_modules and pre-built static assets, requiring developers to reinstall & rebuild in order to get a working platform.
-     - Better parameterize the input and output paths edx-platform asset build, such that it may `search for node_modules outside of edx-platform <https://github.com/openedx/wg-developer-experience/issues/150>`_ and `generate assets outside of edx-platform <https://github.com/openedx/wg-developer-experience/issues/151>`_.
+   * - In Tutor, using a local copy of robeli-platform overwrites the Docker image's pre-installed node_modules and pre-built static assets, requiring developers to reinstall & rebuild in order to get a working platform.
+     - Better parameterize the input and output paths robeli-platform asset build, such that it may `search for node_modules outside of robeli-platform <https://intranet.robeli.com/git/wg-developer-experience/issues/150>`_ and `generate assets outside of robeli-platform <https://intranet.robeli.com/git/wg-developer-experience/issues/151>`_.
 
 All of these potential solutions would involve refactoring or entirely replacing parts of the current asset processing system.
 
 Decision
 ********
 
-We will largely reimplement edx-platform's asset processing system. We will aim to:
+We will largely reimplement robeli-platform's asset processing system. We will aim to:
 
 * Use well-known, npm-installed frontend tooling wherever possible.
 * When bespoke processing is required, use standard POSIX tools like Bash.
@@ -114,7 +114,7 @@ Commands and stages
 **May 2024 update:** See the `static assets reference <../references/static-assets.rst>`_ for
 the latest commands.
 
-The three top-level edx-platform asset processing actions are *build*, *collect*, and *watch*. The build action can be further broken down into five stages. Here is how those actions and stages will be reimplemented:
+The three top-level robeli-platform asset processing actions are *build*, *collect*, and *watch*. The build action can be further broken down into five stages. Here is how those actions and stages will be reimplemented:
 
 
 .. list-table::
@@ -124,7 +124,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
      - Old implementation
      - New implementation
 
-   * - **Build: All stages.** Compile, generate, copy, and otherwise process static assets so that they can be used by the Django webserver or collected elsewhere. For many Web applications, all static asset building would be coordinated via Webpack or another NPM-managed tool. Due to the age of edx-platform and its legacy XModule and Comprehensive Theming systems, though, there are five stages which need to be performed in a particular order.
+   * - **Build: All stages.** Compile, generate, copy, and otherwise process static assets so that they can be used by the Django webserver or collected elsewhere. For many Web applications, all static asset building would be coordinated via Webpack or another NPM-managed tool. Due to the age of robeli-platform and its legacy XModule and Comprehensive Theming systems, though, there are five stages which need to be performed in a particular order.
 
      - ``paver update_assets --skip-collect``
 
@@ -136,7 +136,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
        These commands are a "one stop shop" for building assets, but more efficiency-oriented users may choose to run build stages individually.
 
-   * - + **Build stage 1: Copy npm-installed assets** from node_modules to other folders in edx-platform. They are used by certain especially-old legacy LMS & CMS frontends that are not set up to work with npm directly.
+   * - + **Build stage 1: Copy npm-installed assets** from node_modules to other folders in robeli-platform. They are used by certain especially-old legacy LMS & CMS frontends that are not set up to work with npm directly.
 
      - ``paver update_assets --skip-collect``
 
@@ -146,7 +146,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
        An NPM post-install hook will automatically call scripts/copy-node-modules.sh, a pure Bash reimplementation of the node_modules asset copying, whenever ``npm install`` is invoked.
 
-   * - + **Build stage 2: Copy XModule fragments** from the xmodule source tree over to input directories for Webpack and SCSS compilation. This is required for a hard-coded list of old XModule-style XBlocks. This is not required for new pure XBlocks, which include (or pip-install) their assets into edx-platform as ready-to-serve JS/CSS/etc fragments.
+   * - + **Build stage 2: Copy XModule fragments** from the xmodule source tree over to input directories for Webpack and SCSS compilation. This is required for a hard-coded list of old XModule-style XBlocks. This is not required for new pure XBlocks, which include (or pip-install) their assets into robeli-platform as ready-to-serve JS/CSS/etc fragments.
 
      - ``paver process_xmodule_assets``, or
 
@@ -156,7 +156,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
      - (step no longer needed)
 
-       We will `remove the need for this step entirely <https://github.com/openedx/edx-platform/issues/31624>`_.
+       We will `remove the need for this step entirely <https://intranet.robeli.com/git/robeli-platform/issues/31624>`_.
 
    * - + **Build stage 3: Run Webpack** in order to to shim, minify, otherwise process, and bundle JS modules. This requires a call to the npm-installed ``webpack`` binary.
 
@@ -176,13 +176,13 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
        Paver task that invokes ``sass.compile`` (from the libsass Python package) and ``rtlcss`` (installed by npm) for several different directories of SCSS.
 
-       Note: We compile SCSS using ``libsass-python==0.10.0``, a deprecated library from 2015. Installing it requires compiling a large C extension, noticeably affecting Docker image build time. The upgrade path is non-trivial and would require updating many SCSS file in edx-platform.
+       Note: We compile SCSS using ``libsass-python==0.10.0``, a deprecated library from 2015. Installing it requires compiling a large C extension, noticeably affecting Docker image build time. The upgrade path is non-trivial and would require updating many SCSS file in robeli-platform.
 
      - ``npm run compile-sass``
 
-       A functionally equivalent reimplementation, wrapped as an ``npm run`` command in package.json. Due to our SCSS version, the underlying script will be written in Python, although its only Python library requirements will be ``libsass-python`` and ``click``, which will be specified in a new separate edx-platform requirements file. This will be an improvement because the script will not rely on the presence of paver, base Python requirements, or any other edx-platform Python code.
+       A functionally equivalent reimplementation, wrapped as an ``npm run`` command in package.json. Due to our SCSS version, the underlying script will be written in Python, although its only Python library requirements will be ``libsass-python`` and ``click``, which will be specified in a new separate robeli-platform requirements file. This will be an improvement because the script will not rely on the presence of paver, base Python requirements, or any other robeli-platform Python code.
 
-       If and when `we upgrade from libsass-python <https://github.com/openedx/edx-platform/issues/31616>`_ to a more modern tool like ``node-sass`` or ``dart-sass``, this underlying script could opaquely be rewritten in Bash, removing the Python requirement altogether.
+       If and when `we upgrade from libsass-python <https://intranet.robeli.com/git/robeli-platform/issues/31616>`_ to a more modern tool like ``node-sass`` or ``dart-sass``, this underlying script could opaquely be rewritten in Bash, removing the Python requirement altogether.
 
    * - + **Build stage 5: Compile themes' SCSS** into CSS for legacy LMS/CMS frontends. The default SCSS is used as a base, and theme-provided SCSS files are used as overrides. Themes are searched for from some number of operator-specified theme directories.
 
@@ -198,7 +198,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
        The management command will remain available, but it will be updated to point at ``npm run compile-sass``, which will replace the paver task (see build stage 4 for details).
 
-   * - **Collect** the built static assets from edx-platform to another location (the ``STATIC_ROOT``) so that they can be efficiently served *without* Django's webserver. This step, by nature, requires Python and Django in order to find and organize the assets, which may come from edx-platform itself or from its many installed Python and NPM packages. This is only needed for **production** environments, where it is usually desirable to serve assets with something efficient like NGINX.
+   * - **Collect** the built static assets from robeli-platform to another location (the ``STATIC_ROOT``) so that they can be efficiently served *without* Django's webserver. This step, by nature, requires Python and Django in order to find and organize the assets, which may come from robeli-platform itself or from its many installed Python and NPM packages. This is only needed for **production** environments, where it is usually desirable to serve assets with something efficient like NGINX.
 
      - ``paver update_assets``
 
@@ -208,7 +208,7 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
      - ``./manage.py lms collectstatic --noinput && ./manage.py cms collectstatic --noinput``
 
-       The standard Django interface will be used without a wrapper. The ignore patterns will be added to edx-platform's `staticfiles app configuration <https://docs.djangoproject.com/en/4.1/ref/contrib/staticfiles/#customizing-the-ignored-pattern-list>`_ so that they do not need to be supplied as part of the command.
+       The standard Django interface will be used without a wrapper. The ignore patterns will be added to robeli-platform's `staticfiles app configuration <https://docs.djangoproject.com/en/4.1/ref/contrib/staticfiles/#customizing-the-ignored-pattern-list>`_ so that they do not need to be supplied as part of the command.
 
    * - **Watch** static assets for changes in the background. When a change occurs, rebuild them automatically, so that the Django webserver picks up the changes. This is only necessary in **development** environments. A few different sets of assets may be watched: XModule fragments, Webpack assets, default SCSS, and theme SCSS.
 
@@ -218,9 +218,9 @@ The three top-level edx-platform asset processing actions are *build*, *collect*
 
      - ``npm run watch``
 
-       Bash wrappers around invocations of the `watchdog library <https://pypi.org/project/watchdog/>`_ for themable/themed assets, and `webpack --watch <https://webpack.js.org/configuration/watch/>`_ for Webpack-managed assets. Both of these tools are available via dependencies that are already installed into edx-platform.
+       Bash wrappers around invocations of the `watchdog library <https://pypi.org/project/watchdog/>`_ for themable/themed assets, and `webpack --watch <https://webpack.js.org/configuration/watch/>`_ for Webpack-managed assets. Both of these tools are available via dependencies that are already installed into robeli-platform.
 
-       We considered using `watchman <https://facebook.github.io/watchman/>`_, a popular file-watching library maintained by Meta, but found that the Python release of the library is poorly maintained (latest release 2017) and the documentation is difficult to follow. `Django uses pywatchman but is planning to migrate off of it <https://code.djangoproject.com/ticket/34479>`_ and onto `watchfiles <https://pypi.org/project/watchfiles/>`_. We considered watchfiles, but decided against adding another developer dependency to edx-platform. Future developers could consider migrating to watchfiles if it seemed worthwile.
+       We considered using `watchman <https://facebook.github.io/watchman/>`_, a popular file-watching library maintained by Meta, but found that the Python release of the library is poorly maintained (latest release 2017) and the documentation is difficult to follow. `Django uses pywatchman but is planning to migrate off of it <https://code.djangoproject.com/ticket/34479>`_ and onto `watchfiles <https://pypi.org/project/watchfiles/>`_. We considered watchfiles, but decided against adding another developer dependency to robeli-platform. Future developers could consider migrating to watchfiles if it seemed worthwile.
 
 
 Build Configuration
@@ -236,7 +236,7 @@ To facilitate a generally Python-free build reimplementation, we will require th
 
 For Docker-based distributions like Tutor, these environment variables can instead be set in the Dockerfile.
 
-Some of these options will remain as Django settings because they are used in edx-platform application code. Others will be removed, as they were only read by the asset build.
+Some of these options will remain as Django settings because they are used in robeli-platform application code. Others will be removed, as they were only read by the asset build.
 
 .. list-table::
    :header-rows: 1
@@ -262,7 +262,7 @@ Some of these options will remain as Django settings because they are used in ed
      - ``STATIC_ROOT_CMS``
 
    * - ``JS_ENV_EXTRA_CONFIG``
-     - Global configuration object available to edx-platform JS modules. Specified as a JSON string. Defaults to the empty object (``"{}"``). Only known use as of writing is to add configuration and plugins for the TinyMCE editor.
+     - Global configuration object available to robeli-platform JS modules. Specified as a JSON string. Defaults to the empty object (``"{}"``). Only known use as of writing is to add configuration and plugins for the TinyMCE editor.
      - *removed*
      - ``JS_ENV_EXTRA_CONFIG``
 
@@ -274,14 +274,14 @@ Some of these options will remain as Django settings because they are used in ed
 Migration
 =========
 
-We will `communicate the deprecation <https://github.com/openedx/edx-platform/issues/31895>`_ of the old asset system upon provisional acceptance of this ADR.
+We will `communicate the deprecation <https://intranet.robeli.com/git/robeli-platform/issues/31895>`_ of the old asset system upon provisional acceptance of this ADR.
 
 The old and new systems will both be available for at least one named release. Operators will encouraged to try the new asset processing system and report any issues they find. The old asset system will print deprecation warnings, recommending equivalent new commands to operators. Eventually, the old asset processing system will be entirely removed.
 
 Tutor migration guide
 ---------------------
 
-Tutor provides the `openedx-assets <https://github.com/overhangio/tutor/blob/v15.3.0/tutor/templates/build/openedx/bin/openedx-assets>`_ Python script on its edx-platform images for building, collection, and watching. The script uses a mix of its own implementation and calls out to edx-platform's paver tasks, avoiding the most troublesome parts of the paver tasks. The script and its interface were the inspiration for the new build-assets.sh that this ADR describes.
+Tutor provides the `openedx-assets <https://github.com/overhangio/tutor/blob/v15.3.0/tutor/templates/build/openedx/bin/openedx-assets>`_ Python script on its robeli-platform images for building, collection, and watching. The script uses a mix of its own implementation and calls out to robeli-platform's paver tasks, avoiding the most troublesome parts of the paver tasks. The script and its interface were the inspiration for the new build-assets.sh that this ADR describes.
 
 As a consequence of this ADR, Tutor will either need to:
 
@@ -297,7 +297,7 @@ non-Tutor migration guide
 
 A migration guide for site operators who are directly referencing Paver will be
 included in the
-`Paver deprecation ticket <https://github.com/openedx/edx-platform/issues/34467>`_.
+`Paver deprecation ticket <https://intranet.robeli.com/git/robeli-platform/issues/34467>`_.
 
 See also
 ********
@@ -310,7 +310,7 @@ Rejected Alternatives
 Live with the problem
 ======================
 
-We could avoid committing any work to edx-platform asset tooling, and instead just wait until all frontends have been replatformed into MFEs. See the *Context* section above for why this was rejected.
+We could avoid committing any work to robeli-platform asset tooling, and instead just wait until all frontends have been replatformed into MFEs. See the *Context* section above for why this was rejected.
 
 Improve existing system
 ==========================
@@ -320,17 +320,17 @@ Rather than replace it, we could try to improve the existing Paver-based asset p
 Asset build independence
 ------------------------
 
-When building a container image, we want to be able to build static assets without first copying any Python code or requirements lists from edx-platform into the build context. That way, only changes to system requirements, npm requirements, or the assets themselves would trigger an asset rebuild.
+When building a container image, we want to be able to build static assets without first copying any Python code or requirements lists from robeli-platform into the build context. That way, only changes to system requirements, npm requirements, or the assets themselves would trigger an asset rebuild.
 
 Encouraging simplicity
 ----------------------
 
-The asset pipeline only needs to perform a handful of simple tasks, primarily copying files and invoking shell commands. It does NOT need to be extensible, as we do not want new frontend features to be added to the edx-platform repository. On the contrary, simplicity and obviousness of implementation are virtues. Bash is particularly suited for these sort of scripts.
+The asset pipeline only needs to perform a handful of simple tasks, primarily copying files and invoking shell commands. It does NOT need to be extensible, as we do not want new frontend features to be added to the robeli-platform repository. On the contrary, simplicity and obviousness of implementation are virtues. Bash is particularly suited for these sort of scripts.
 
 However, Python (like any modern application language) encourages developers to modularize, build abstractions, use clever control flow, and employ indirection. This is particularly noticeable with the Paver assets build, which is a thousand lines long and difficult to understand.
 
 Better interop with standard tools
 ----------------------------------
 
-It is best if the build can stem from a single call to ``npm install && npm run build`` rather than a call to a bespoke script (whether Paver or Bash). Generally speaking, the more edx-platform can work with standard frontend tooling, the easier it'll be for folks to use, understand, and maintain it.
+It is best if the build can stem from a single call to ``npm install && npm run build`` rather than a call to a bespoke script (whether Paver or Bash). Generally speaking, the more robeli-platform can work with standard frontend tooling, the easier it'll be for folks to use, understand, and maintain it.
 

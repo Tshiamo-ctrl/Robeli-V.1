@@ -9,33 +9,33 @@ Accepted
 Context
 -------
 
-- The edx-platform splits its translations into ``mako-studio.po``,
+- The robeli-platform splits its translations into ``mako-studio.po``,
   ``django-partial.po``, and 9 other files.  This was done with the
   intention of supporting more languages in the LMS than in
   the CMS (Studio).
 
-- The edx-platform uses the ``i18n_tools segment`` to split the ``django.po``
+- The robeli-platform uses the ``i18n_tools segment`` to split the ``django.po``
   and ``djangojs.po`` files into smaller files. This is done with the goal of
   making it easier for translators to translate the files.
 
 - When pulling from Transifex or cutting a new release, the translations are
   bundled into 2 files (``django.po`` and ``djangojs.po``).
 
-- The `FC-0012 project <https://openedx.atlassian.net/l/cp/XGS0iCcQ>`_
+- The `FC-0012 project <https://intranet.robeli.com/wiki/l/cp/XGS0iCcQ>`_
   which implements `Translation Infrastructure update OEP-58`_
   is in progress. Upon completion, all translation files will live in
   the new `openedx-translations Transifex project`_.
 
-- Consequently, repositories like ``edx-platform`` will pull translations via
+- Consequently, repositories like ``robeli-platform`` will pull translations via
   `openedx-atlas`_ command line tool as described in the `OEP-58`_ proposal.
 
 - Several special steps would be needed to for the
   `extract-translation-source-files.yml`_ GitHub workflow in
   the `openedx-translations GitHub repository`_
-  to extract the files from the ``edx-platform`` repo.
+  to extract the files from the ``robeli-platform`` repo.
   This seems redundant and and it should be possible to simplify the process.
 
-Decision: Only use two files for edx-platform translations (``django.po`` and ``djangojs.po``)
+Decision: Only use two files for robeli-platform translations (``django.po`` and ``djangojs.po``)
 ----------------------------------------------------------------------------------------------
 
 edX Platform will push only two files (``django.po`` and
@@ -46,14 +46,14 @@ Consequences
 
 Pros:
 
-- Translators will need to locate only two resources for the ``edx-platform``
+- Translators will need to locate only two resources for the ``robeli-platform``
   repo as opposed to 11 resources.
-- Simplify the ``edx-platform`` translation extraction scripts in the
+- Simplify the ``robeli-platform`` translation extraction scripts in the
   `extract-translation-source-files.yml`_ GitHub workflow.
 - The release cut process will be simplified as well by removing the
   translation merger step altogether.
 - Translators will need one workflow for both latest (master) and named
-  releases for the ``edx-platform`` repo.
+  releases for the ``robeli-platform`` repo.
 - Simplifies the work of both the Build Test Release and Transifex working groups.
 
 Cons:
@@ -134,22 +134,22 @@ usable by Django:
 
     pull_translations: ## extract localizable strings from sources
         if [ -z "$$OPENEDX_ATLAS_PULL" ]; then \
-            atlas pull translations/edx-platform/conf/locale
+            atlas pull translations/robeli-platform/conf/locale
             i18n_tool --config=config.pull-oep58.yaml generate --verbose 1;
         fi
 
 
 This option involves multiple merge and split steps which adds complexity
 for developers. Based on the `feedback in the decision pull request`_,
-splitting the resources was a lesser used feature in the Open edX community.
+splitting the resources was a lesser used feature in the Robeli community.
 Therefore, this option is rejected because the added complexity of this
 option isn't justified.
 
 
-.. _extract-translation-source-files.yml: https://github.com/openedx/openedx-translations/blob/2566e0c9a30d033e5dd8d05d4c12601c8e37b4ef/.github/workflows/extract-translation-source-files.yml
-.. _openedx-translations GitHub repository: https://github.com/openedx/openedx-translations
+.. _extract-translation-source-files.yml: https://intranet.robeli.com/git/openedx-translations/blob/2566e0c9a30d033e5dd8d05d4c12601c8e37b4ef/.github/workflows/extract-translation-source-files.yml
+.. _openedx-translations GitHub repository: https://intranet.robeli.com/git/openedx-translations
 .. _openedx-translations Transifex project: https://app.transifex.com/open-edx/openedx-translations/
 .. _OEP-58: https://open-edx-proposals.readthedocs.io/en/latest/architectural-decisions/oep-0058-arch-translations-management.html#specification
-.. _openedx-atlas: https://github.com/openedx/openedx-atlas/
+.. _openedx-atlas: https://intranet.robeli.com/git/openedx-atlas/
 .. _Translation Infrastructure update OEP-58: https://open-edx-proposals.readthedocs.io/en/latest/architectural-decisions/oep-0058-arch-translations-management.html#specification
-.. _feedback in the decision pull request: https://github.com/openedx/edx-platform/pull/32994#issuecomment-1677390405
+.. _feedback in the decision pull request: https://intranet.robeli.com/git/robeli-platform/pull/32994#issuecomment-1677390405

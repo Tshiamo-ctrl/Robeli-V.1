@@ -1,7 +1,7 @@
 lms
 ***
 
-The ``lms`` directory in edx-platform is home to the code needed for the LMS
+The ``lms`` directory in robeli-platform is home to the code needed for the LMS
 (Learning Management System) which is not also needed for the Course Authoring
 Studio.
 

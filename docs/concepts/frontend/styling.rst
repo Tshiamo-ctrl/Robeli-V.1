@@ -1,10 +1,10 @@
 #######################
-Styling in edx-platform
+Styling in robeli-platform
 #######################
 
 Over time, our Sass styling has become a little convoluted, with three major
 reworkings often leading to confusion when a developer needs to style in
-multiple locations across edx-platform. The main endeavors were v1, v2 (or
+multiple locations across robeli-platform. The main endeavors were v1, v2 (or
 pattern library) and Bootstrap. We are trying to move away from using v2, as the
 pattern library is deprecated, but there may still be locations in the code that
 reference those styles (please remove them as you see fit).
@@ -22,7 +22,7 @@ single large css file to be rendered on the page. From the Sass docs:
 
 This structure allows us to break up our styling into small pieces, making
 readability and maintenance easier, while often at the expense of structural
-complexity as a code base grows. Here is an example, directly from edx-platform,
+complexity as a code base grows. Here is an example, directly from robeli-platform,
 for how the partials flow to a single scss file that compiles into CSS for the
 page to use. This is a page that uses v1 styling.
 
@@ -50,7 +50,7 @@ the process (ie: ``bootstrap/variables`` cannot reference variables from
 
 This diagram describes the process for the **v1 styles**, and there is a similar
 setup for ``lms-main-v2.scss`` as well as ``bootstrap/lms-main.scss``. Each
-individual HTML page on the edx-platform specifies which of the three that page
+individual HTML page on the robeli-platform specifies which of the three that page
 wants to use for styling. Please note that as an organization, we are slowly
 trying to 1) move everything over to the bootstrap/lms-main.scss file and 2)
 deprecate and stop using any v2 files. ``lms-main-v1.scss`` can still be used,
@@ -66,12 +66,12 @@ What theming does, and how to do it
 
 By thinking about the styling as a tree, theming becomes a lot simpler. All
 theming means is that you can override one of the partials above by matching
-the exact path in the ``edx-platform/themes`` directory. So, for example, to
+the exact path in the ``robeli-platform/themes`` directory. So, for example, to
 override the shared header file (located at ``lms/static/sass/shared/_header``),
-you would simply go into the ``edx-platform/themes/[theme you want to
+you would simply go into the ``robeli-platform/themes/[theme you want to
 override]/lms/static/shared`` folder and add a _header.scss file. When django
 compiles the assets, it will use this file as a replacement to the main
-edx-platform implementation.
+robeli-platform implementation.
 
 If you look at the actual code base, you will see that we have a standard of
 using the partials directory for these overrides files. This keeps the specific
@@ -83,7 +83,7 @@ Final Note: When dealing with front end changes, it is a good idea to also check
 the edx-themes repo, that works exactly like our themes folder, but also
 includes html templates that can further confuse things.
 
-Bootstrap and edx-platform
+Bootstrap and robeli-platform
 **************************
 
 In a month and a half endeavor in the Fall, Andy and I worked on integrating
@@ -155,9 +155,9 @@ gradually pulling in styles for components, so this must mean that you are
 building a component that has not yet been used in the LMS/Studio.
 
 To add the styles, you first need to find them in the bootstrap package. To do
-so, search at edx-platform/node_modules/bootstrap/scss for the file that you
+so, search at robeli-platform/node_modules/bootstrap/scss for the file that you
 need. Then add this to the v1 or v2 tree, most likely to the build/base.scss
 file. Note that you may hit issues with mixins when you try to compile the SASS.
-In this case, check the edx-platform/node_modules/bootstrap/scss/mixins folder
+In this case, check the robeli-platform/node_modules/bootstrap/scss/mixins folder
 and import that into the lms or studio before trying to import the component
 styling.

@@ -2010,7 +2010,7 @@ CREDIT_PROVIDER_SECRET_KEYS = {}
 #   be searched for comprehensive themes. Do not override this Django setting directly.
 #   Instead, set the COMPREHENSIVE_THEME_DIRS environment variable, using colons (:) to
 #   separate paths.
-COMPREHENSIVE_THEME_DIRS = os.environ.get("COMPREHENSIVE_THEME_DIRS", "").split(":")
+COMPREHENSIVE_THEME_DIRS = os.environ.get("COMPREHENSIVE_THEME_DIRS", "/workspace/themes").split(":")
 
 # .. setting_name: DEFAULT_SITE_THEME
 # .. setting_default: None
@@ -2023,7 +2023,7 @@ DEFAULT_SITE_THEME = None
 # .. toggle_description: See LMS annotation.
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2016-06-30
-ENABLE_COMPREHENSIVE_THEMING = False
+ENABLE_COMPREHENSIVE_THEMING = True
 
 # .. setting_name: CUSTOM_RESOURCE_TEMPLATES_DIRECTORY
 # .. setting_default: None

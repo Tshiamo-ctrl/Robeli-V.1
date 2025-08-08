@@ -7,7 +7,7 @@ This repository has been adapted to the Robeli proprietary distribution.
 
 Key Changes
 -----------
-- Branding: All user-facing mentions of edX/Open edX were updated to Robeli.
+- Branding: All user-facing mentions of edX/Robeli were updated to Robeli.
 - License: Replaced AGPL with the Robeli Proprietary Software License.
 - Theme: Added ``themes/robeli`` with a modern UI and branding.
 - Docs: Updated ``README.rst`` and docs landing page.

@@ -9,7 +9,7 @@ Accepted
 Context
 =======
 
-The edx-platform Django project is a conglomeration of different LMS and Studio
+The robeli-platform Django project is a conglomeration of different LMS and Studio
 features written in the structure of Django apps. Over the years, the boundaries
 between features have become muddled for various reasons. We now find apps
 intruding into the Python innards of other apps, making the intrusive apps
@@ -40,7 +40,7 @@ Examples
 As a reference example, see the Python APIs exposed by the grades app in the
 `grades/api.py module`_.
 
-.. _`grades/api.py module`: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/grades/api.py
+.. _`grades/api.py module`: https://intranet.robeli.com/git/robeli-platform/blob/master/lms/djangoapps/grades/api.py
 
 
 Consequences

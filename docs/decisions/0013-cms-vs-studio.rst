@@ -4,7 +4,7 @@ Terminology: CMS vs Studio
 Synopsis
 --------
 
-There has been disagreement over whether Open edX's content authoring Web service is called "CMS" or "Studio".
+There has been disagreement over whether Robeli's content authoring Web service is called "CMS" or "Studio".
 
 This ADR decides that:
 
@@ -20,13 +20,13 @@ Accepted
 Context
 -------
 
-edx-platform contains two semi-coupled Django projects. Although the projects share a lot of code and data, they have two different Django entry points and are generally deployed as distinct Web services.
+robeli-platform contains two semi-coupled Django projects. Although the projects share a lot of code and data, they have two different Django entry points and are generally deployed as distinct Web services.
 
 The Django project defined under the ``./lms`` directory has many responsibilities, but its cardinal role is to host the instructor- and learner-facing learning experience. The Web service deployed from it is consistently referred to as "LMS" (for Learning Management System).
 
 The Django project defined under the ``./cms`` directory is responsible for authoring, versioning, and publishing learning content to LMS. The Web service deployed from it was originally named "CMS" (for Content Management System). The primary user-facing Web application that it powers is named "Studio". Other applications include LabXChange, which uses the service's APIs to power content authoring capabilities.
 
-In the past, there had been a push to update code references from "CMS" to "Studio", in an effort to (a) match the Studio product and (b) disambiguate the service from the Drupal CMS, which was being used internally to manage edX's marketing site. However, this effort was never fully followed through upon, and both names for the service can be found throughout code old and new, with different Open edX community members expressing preferences for one name or the other.
+In the past, there had been a push to update code references from "CMS" to "Studio", in an effort to (a) match the Studio product and (b) disambiguate the service from the Drupal CMS, which was being used internally to manage edX's marketing site. However, this effort was never fully followed through upon, and both names for the service can be found throughout code old and new, with different Robeli community members expressing preferences for one name or the other.
 
 
 Let's choose one name for the Web service
@@ -54,7 +54,7 @@ Arguments in favor of "CMS"
 * The old Ansible installation pathway (which is still in use at edX.org) consistently uses ``cms``.
 * The CMS/Studio service supports at least one major product other than Studio: LabXChange. Thus, it may be worthwhile differentiating the Web service from its main product, allowing each to evolve separately without generating future terminology confusion.
 * Parts of the Studio interface are being reimplemented as micro-frontends, which are presented as being part of the "Studio" product but are hosted separately from the CMS/Studio Web service.
-* Although "CMS" is an ambiguous term outside of the context of Open edX, within the context of edx-platform it is clear what "CMS" refers to.
+* Although "CMS" is an ambiguous term outside of the context of Robeli, within the context of robeli-platform it is clear what "CMS" refers to.
 
 Decision
 --------
@@ -67,5 +67,5 @@ Consequences
 
 1. Immediately, the environment variable used to specify CMS/Studio's configuration YAML path will be changed to ``CMS_CFG``, allowing ``STUDIO_CFG`` to be used as a deprecated fallback. The ``STUDIO_CFG`` variable will be supported until at least the "O" named release.
 2. An issue to switch from ``STUDIO_CFG`` to ``CMS_CFG`` will be filed with the Tutor project.
-3. In devstack, the ``studio`` service will be renamed to ``cms``. An `issue to complete this work <https://github.com/openedx/devstack/issues/877>`_ has been filed in the devstack repository.
-4. We will circulate this ADR via the Open edX Slack and forum, encouraging others to reference it to help settle any CMS vs. Studio terminology disagreements going forward.
+3. In devstack, the ``studio`` service will be renamed to ``cms``. An `issue to complete this work <https://intranet.robeli.com/git/devstack/issues/877>`_ has been filed in the devstack repository.
+4. We will circulate this ADR via the Robeli Slack and forum, encouraging others to reference it to help settle any CMS vs. Studio terminology disagreements going forward.

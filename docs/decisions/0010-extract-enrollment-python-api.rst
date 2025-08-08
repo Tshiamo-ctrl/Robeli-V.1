@@ -31,7 +31,7 @@ We are not changing the POST handler because it serves various use cases and par
 performs authorization checks on request object, none of which are needed and would require careful
 and rigorous testing of various enrollment flows, and also introduce risk of regressions if done in a single round of work.
 
-We will add a new function to the `enterprise_support` package in edx-platform to achieve this.
+We will add a new function to the `enterprise_support` package in robeli-platform to achieve this.
 
 A few other features of the endpoint are also not needed in order to obtain the functionality needed
 to replace the existing POST call:
@@ -61,10 +61,10 @@ enrolling one user in one course run, which is all that is needed for the curren
 Alternatives considered
 -----------------------
 
-Write a new endpoint in edx-platform that can handle bulk enrollment in a single REST invocation.
-Since an existing bulk_enroll endpoint does exist in edx-platform writing a new one is not sensible.
+Write a new endpoint in robeli-platform that can handle bulk enrollment in a single REST invocation.
+Since an existing bulk_enroll endpoint does exist in robeli-platform writing a new one is not sensible.
 
-Use the existing bulk_enroll endpoint that exists in edx-platform somehow. This endpoint cannot be
+Use the existing bulk_enroll endpoint that exists in robeli-platform somehow. This endpoint cannot be
 used as is, and we will still need to handle enterprise-specific concerns.
 
 Add batching and pause between batches in the existing edx-enterprise codebase. This will

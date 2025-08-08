@@ -1,4 +1,4 @@
-0. edx-platform Static Asset Pipeline Plan
+0. robeli-platform Static Asset Pipeline Plan
 ##########################################
 
 Status
@@ -7,18 +7,18 @@ Status
 Accepted ~2017
 Partially adopted 2017-2024
 
-This was an old plan for modernizing Open edX's frontend assets. We've
+This was an old plan for modernizing Robeli's frontend assets. We've
 retroactively turned it into an ADR because it has some valuable insights.
 Although most of these improvements weren't applied as written, these ideas
 (particularly, separating Python concerns from frontend tooling concerns) were
-applied to both legacy edx-platform assets as well as the Micro-Frontend
+applied to both legacy robeli-platform assets as well as the Micro-Frontend
 framework that was developed 2017-2019.
 
 Context, Decision, Consequences
 *******************************
 
 
-Static asset handling in edx-platform has evolved in a messy way over the years.
+Static asset handling in robeli-platform has evolved in a messy way over the years.
 This has led to a lot of complexity and inconsistencies. This is a proposal for
 how we can move forward to a simpler system and more modern toolchain. Note that
 this is not a detailed guide for how to write React or Bootstrap code. This is
@@ -108,11 +108,11 @@ The Django convention for having an app with bundled assets is to namespace them
 locally with the app name so that they get their own directories when they are
 gathered together into a common static directory by collectstatic. For example,
 the edx-enterprise app has a ``static/enterprise`` folder, so its assets are
-compiled to ``/edx/var/edxapp/staticfiles/enterprise`` by edx-platform and will
+compiled to ``/edx/var/edxapp/staticfiles/enterprise`` by robeli-platform and will
 not conflict with assets from any other Django app.
 
 Webpack conventions would have us create a single set of configuration files at
-the root of edx-platform, which would specify all bundles in the project.
+the root of robeli-platform, which would specify all bundles in the project.
 
 TODO: The big, "pluggable Webpack components" question.
 
@@ -140,7 +140,7 @@ full list:
           /js
           /vendor ?
 
-  # Django apps that are in the edx-platform repo
+  # Django apps that are in the robeli-platform repo
   /course_bookmarks
   /course_experience
 
@@ -167,7 +167,7 @@ Django vs. Webpack Roles
 Rule of thumb: Django/Python still serves static assets, Webpack processes and
 optimizes them.
 
-Webpack would be responsible for all Sass compilation in edx-platform. It would
+Webpack would be responsible for all Sass compilation in robeli-platform. It would
 also be responsible for the optimization/minification of JavaScript assets, but
 those optimized assets would only appear under the ``/webpack`` directory. Third
 party assets that Webpack is not aware of may have hash suffixes applied to them
@@ -206,5 +206,5 @@ better facilitate independent deployment and isolation.
 Example Groups:
 
 * XBlock/XModule Assets
-* LMS/Studio apps in edx-platform
+* LMS/Studio apps in robeli-platform
 * Third party app, such as edx-enterprise

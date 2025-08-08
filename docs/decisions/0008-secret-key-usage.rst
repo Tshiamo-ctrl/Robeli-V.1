@@ -10,9 +10,9 @@ Context
 =======
 
 Django's Secret key is used by Django to cryptographically sign various
-capabilities in Django.  It is also used by the edx-platform in various cases
+capabilities in Django.  It is also used by the robeli-platform in various cases
 as a `pepper`_ when hashing data to anonymize it while keeping it consistent.
-Some of the uses of the ``SECRET_KEY`` in edx-platform were not resilient to
+Some of the uses of the ``SECRET_KEY`` in robeli-platform were not resilient to
 the key being rotated.  As a part of ARCHBOM-1646 those code paths are being
 updated so that regular rotation of the ``SECRET_KEY`` will cause temporary
 issues but will not fully break things.  ie. Sessions might get invalidated or

@@ -275,7 +275,7 @@ def main(
             click.echo(f"      Source: {source_css_file}")
             click.echo(f"      Target: {target_css_file}")
             if not dry:
-                subprocess.run(["rtlcss", source_css_file, target_css_file])
+                subprocess.run(["npx", "--yes", "rtlcss", source_css_file, target_css_file])
             click.secho("      Generated.", fg="green")
 
     # Information

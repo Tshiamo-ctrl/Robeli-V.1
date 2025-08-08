@@ -20,7 +20,7 @@ Rather than having multiple python settings files that override things
 differently we will move to just a few python files with most of the settings
 variance living in YAML config files that are managed by environment operators.
 The structure of these files try to match `OEP-45` as bast as we can. Because
-the edx-platform houses both the ``LMS`` and ``Studio`` applications, our
+the robeli-platform houses both the ``LMS`` and ``Studio`` applications, our
 implementation will differ slightly from the guidance provided by `OEP-45`.
 
 LMS and CMS settings will continue to live under ``lms/envs/...`` and ``cms/envs/...``.
@@ -36,7 +36,7 @@ To recap that here:
 
 ``required.py`` will document and validate that required settings have been defined.
 
-For edx-platform there may be cases where settings are additive, in this case
+For robeli-platform there may be cases where settings are additive, in this case
 the managing of those additive settings will be managed within
 ``__init__.py``
 
@@ -47,7 +47,7 @@ more explicit, we don't want to take on that work now as it may increase
 complexity.
 
 
-.. _OEP-45: https://github.com/openedx/open-edx-proposals/pull/143/files
+.. _OEP-45: https://intranet.robeli.com/git/open-edx-proposals/pull/143/files
 
 Consequences
 ============

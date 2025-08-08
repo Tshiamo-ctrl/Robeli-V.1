@@ -4,7 +4,7 @@ How To Use the REST API
 .. How-tos should have a short introduction sentence that captures the user's goal and introduces the steps.
 
 This how-to will help you get setup to be able to make authenticated requests to
-the edx-platform REST API.
+the robeli-platform REST API.
 
 Assumptions
 ***********
@@ -13,7 +13,7 @@ Assumptions
    person who is following the How-to.  The assumptions may link to other
    how-tos if possible.
 
-* You have access to the edx-platform Django Admin (``/admin``) Panel.
+* You have access to the robeli-platform Django Admin (``/admin``) Panel.
 
 * You have a user that you want to make the rest calls as (``UserA``).
 
@@ -43,7 +43,7 @@ Steps
 
 #. Save the ``client_id`` and ``client_secret``.
 
-#. The best way to interact with the edx-platform REST API is by making
+#. The best way to interact with the robeli-platform REST API is by making
    requests using the JWT Authorization header.  Use the ``client_id`` and
    ``client_secret`` to get a JWT token.
 
@@ -70,7 +70,7 @@ Steps
 
 
 #. The code above will produce a JWT token that you can use to hit any existing
-   edx-platform API endpoint.
+   robeli-platform API endpoint.
 
    .. code-block:: python
       :name: Example, get all courses you're enrolled in.
