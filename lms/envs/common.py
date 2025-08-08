@@ -75,7 +75,7 @@ from lms.djangoapps.lms_xblock.mixin import LmsBlockMixin
 # .. setting_default: Your Platform Name Here
 # .. setting_description: The display name of the platform to be used in
 #     templates/emails/etc.
-PLATFORM_NAME = _('Your Platform Name Here')
+PLATFORM_NAME = _('Robeli')
 PLATFORM_DESCRIPTION = _('Your Platform Description Here')
 CC_MERCHANT_NAME = Derived(lambda settings: settings.PLATFORM_NAME)
 
@@ -686,7 +686,8 @@ FEATURES = {
     # .. toggle_use_cases: open_edx
     # .. toggle_creation_date: 2015-09-04
     # .. toggle_tickets: https://github.com/openedx/edx-platform/pull/9744
-    'ENABLE_SPECIAL_EXAMS': False,
+    'ENABLE_SPECIAL_EXAMS': True,
+    'ENABLE_PROCTORED_EXAMS': True,
 
     # .. toggle_name: FEATURES['ENABLE_LTI_PROVIDER']
     # .. toggle_implementation: DjangoSetting
@@ -4603,10 +4604,11 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 ### Proctoring configuration (redirct URLs and keys shared between systems) ####
 PROCTORING_BACKENDS = {
-    'DEFAULT': 'null',
-    # The null key needs to be quoted because
-    # null is a language independent type in YAML
-    'null': {}
+    'DEFAULT': 'mock',
+    'mock': {},
+    'mock_proctoring_without_rules': {},
+    # LTI external can be configured if needed
+    'lti_external': {},
 }
 
 PROCTORED_EXAM_VIEWABLE_PAST_DUE = False

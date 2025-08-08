@@ -802,11 +802,9 @@ edx-organizations==7.1.0
     # via
     #   -r requirements/edx/doc.txt
     #   -r requirements/edx/testing.txt
-edx-proctoring==5.2.0
+edx-proctoring==0.0
     # via
     #   -r requirements/edx/doc.txt
-    #   -r requirements/edx/testing.txt
-    #   edx-proctoring-proctortrack
 edx-rbac==2.1.0
     # via
     #   -r requirements/edx/doc.txt

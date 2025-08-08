@@ -5,6 +5,7 @@ Xblock services for creating xblocks.
 from uuid import uuid4
 
 from django.utils.translation import gettext as _
+from django.conf import settings
 from xmodule.modulestore.django import modulestore
 from xmodule.tabs import StaticTab
 
@@ -42,6 +43,19 @@ def create_xblock(parent_locator, user, category, display_name, boilerplate=None
 
         # We should use the 'fields' kwarg for newer block settings/values (vs. metadata or data)
         fields = {}
+
+        # Default to proctored timed exam for newly created subsections (sequentials) when enabled
+        if category == 'sequential':
+            course_key = usage_key.course_key
+            course = store.get_course(course_key)
+            if (
+                settings.FEATURES.get('ENABLE_SPECIAL_EXAMS', False)
+                and getattr(course, 'enable_proctored_exams', False)
+            ):
+                # Allow authors to later switch to non-proctored/timed in Studio
+                fields['is_time_limited'] = True
+                fields['is_proctored_enabled'] = True
+                fields['hide_after_due'] = True
 
         # Entrance Exams: Chapter module positioning
         child_position = None

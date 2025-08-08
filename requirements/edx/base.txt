@@ -513,10 +513,9 @@ edx-opaque-keys[django]==3.0.0
     #   xblocks-contrib
 edx-organizations==7.1.0
     # via -r requirements/edx/kernel.in
-edx-proctoring==5.2.0
+edx-proctoring==0.0
     # via
     #   -r requirements/edx/kernel.in
-    #   edx-proctoring-proctortrack
 edx-rbac==2.1.0
     # via
     #   edx-enterprise
@@ -903,7 +902,6 @@ proto-plus==1.26.1
 protobuf==6.31.1
     # via
     #   google-api-core
-    #   google-cloud-firestore
     #   googleapis-common-protos
     #   grpcio-status
     #   proto-plus
