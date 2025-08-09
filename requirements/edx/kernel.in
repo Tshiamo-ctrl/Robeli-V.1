@@ -79,7 +79,8 @@ edx-milestones
 edx-name-affirmation
 edx-opaque-keys>=2.12.0
 edx-organizations
-edx-proctoring>=2.0.1
+# Use forked edx-proctoring from user's repository (pin via github.in)
+edx-proctoring
 # using hash to support django42
 # edx-proctoring-proctortrack==1.2.1  # Intentionally and permanently pinned to ensure code changes are reviewed
 edx-rest-api-client

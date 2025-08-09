@@ -90,7 +90,7 @@ BLOCK_STRUCTURES_SETTINGS = dict(
 
 ############################ FEATURE CONFIGURATION #############################
 
-PLATFORM_NAME = _('Your Platform Name Here')
+PLATFORM_NAME = _('Robeli')
 
 CONTACT_MAILING_ADDRESS = _('Your Contact Mailing Address Here')
 
@@ -117,6 +117,8 @@ FEATURES = {
     'ENABLE_DISCUSSION_SERVICE': True,
     # See annotations in lms/envs/common.py for details.
     'ENABLE_TEXTBOOK': True,
+    'ENABLE_SPECIAL_EXAMS': True,
+    'ENABLE_PROCTORED_EXAMS': True,
 
     # When True, all courses will be active, regardless of start date
     # DO NOT SET TO True IN THIS FILE
@@ -253,7 +255,7 @@ FEATURES = {
     'ENABLE_CREDIT_ELIGIBILITY': ENABLE_CREDIT_ELIGIBILITY,
 
     # Special Exams, aka Timed and Proctored Exams
-    'ENABLE_SPECIAL_EXAMS': False,
+    'ENABLE_SPECIAL_EXAMS': True,
 
     # Show the language selector in the header
     'SHOW_HEADER_LANGUAGE_SELECTOR': False,
@@ -2431,10 +2433,10 @@ FERNET_KEYS = [
 
 ### Proctoring configuration (redirct URLs and keys shared between systems) ####
 PROCTORING_BACKENDS = {
-    'DEFAULT': 'null',
-    # The null key needs to be quoted because
-    # null is a language independent type in YAML
-    'null': {}
+    'DEFAULT': 'mock',
+    'mock': {},
+    'mock_proctoring_without_rules': {},
+    'lti_external': {},
 }
 
 PROCTORING_SETTINGS = {}
