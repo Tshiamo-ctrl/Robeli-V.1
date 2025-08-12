@@ -186,6 +186,27 @@ been migrated to "Micro-Frontends (MFEs)" which need to be installed and run
 separately. At a bare minimum, you will need to run the `Authentication MFE`_,
 `Learner Home MFE`_, and `Learning MFE`_ in order meaningfully navigate the UI.
 
+Railway Deployment
+------------------
+
+If deploying to Railway, this repository includes a `Dockerfile` and `railway.toml` for a Docker-based service. Minimum steps:
+
+1. Create a new Railway project and connect this repo.
+2. Ensure the service uses the Dockerfile build (configured in `railway.toml`).
+3. Set environment variables:
+   - `SERVICE`: `lms` or `cms` (default `lms`).
+   - `DJANGO_SETTINGS_MODULE`: `lms.envs.postgres` or `cms.envs.postgres`.
+   - `PORT`: `8000`.
+   - `SECRET_KEY`: a strong random value.
+   - Database: either attach a Railway Postgres (which sets `DATABASE_URL`) or set `POSTGRES_*` vars (`POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`).
+   - Optional: `WEB_CONCURRENCY`, `LOG_LEVEL`, `RUN_MIGRATIONS`, `SKIP_ASSETS`.
+4. Deploy. The container starts Gunicorn and exposes port 8000. Healthcheck verifies port and WSGI import.
+
+Notes:
+- `lms/envs/postgres.py` and `cms/envs/postgres.py` auto-parse `DATABASE_URL` and configure `ALLOWED_HOSTS`/`CSRF_TRUSTED_ORIGINS` from `DJANGO_ALLOWED_HOSTS`, `ALLOWED_HOSTS`, or `RAILWAY_PUBLIC_DOMAIN`.
+- To apply migrations automatically, set `RUN_MIGRATIONS=true` after database is configured.
+- Asset build is heavy; it is skipped by default. Set `SKIP_ASSETS=false` to build frontend assets during deploy.
+
 .. _Tutor: https://github.com/overhangio/tutor
 .. _Site Ops home on docs.openedx.org: https://docs.openedx.org/en/latest/site_ops/index.html
 .. _development mode: https://docs.tutor.edly.io/dev.html
