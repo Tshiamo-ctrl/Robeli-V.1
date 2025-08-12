@@ -1,4 +1,4 @@
-from .production import *  # noqa: F401,F403
+from .devstack import *  # noqa: F401,F403
 import os
 
 # Postgres database configuration for container/Railway runtime
