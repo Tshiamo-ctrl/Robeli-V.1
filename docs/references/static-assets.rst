@@ -1,14 +1,14 @@
-Preparing static assets for edx-platform
+Preparing static assets for robeli-platform
 ########################################
 
-To run a production or development edx-platform site, you will need to `build
+To run a production or development robeli-platform site, you will need to `build
 assets`_ assets using ``npm run ...`` commands. Furthermore, for a production
 site, you will also need to `collect assets`_.
 
-*Please note that developing new frontend pages for edx-platform is highly
+*Please note that developing new frontend pages for robeli-platform is highly
 discouraged. New frontend pages should be built as micro-frontends (MFEs),
-which communicate with edx-platform over AJAX, but are built and deployed
-independently. Eventually, we expect that MFEs will replace all edx-platform
+which communicate with robeli-platform over AJAX, but are built and deployed
+independently. Eventually, we expect that MFEs will replace all robeli-platform
 frontend pages, except perhaps XBlock views.*
 
 Configuration
@@ -56,7 +56,7 @@ file or ``LMS_CFG``/``CMS_CFG`` yaml file).
 
    * - ``JS_ENV_EXTRA_CONFIG``
      - ``{}``
-     - Global configuration object available to edx-platform JS modules. Specified as a JSON string.
+     - Global configuration object available to robeli-platform JS modules. Specified as a JSON string.
        Known keys:
 
         * ``TINYMCE_ADDITIONAL_PLUGINS``
@@ -136,14 +136,14 @@ Once assets are built, they can be *collected* into another directory for
 efficient serving. This is only necessary on production sites; developers can
 skip this section.
 
-First, ensure you have a Python enironment with all edx-platform dependencies
+First, ensure you have a Python enironment with all robeli-platform dependencies
 installed::
 
   pip install -r requirements/edx/base.txt -e .
 
-Next, download localized versions of edx-platform assets. Under the hood, this
-command uses the `Open edX Atlas`_ tool, which manages aggregated translations
-from edx-platform and its various plugins::
+Next, download localized versions of robeli-platform assets. Under the hood, this
+command uses the `Robeli Atlas`_ tool, which manages aggregated translations
+from robeli-platform and its various plugins::
 
   make pull_translations
 
@@ -156,5 +156,5 @@ Management System, and once for the Content Management Studio::
 The ``--noinput`` option lets you avoid having to type "yes" when overwriting
 existing collected assets.
 
-.. _Open edX Atlas: https://github.com/openedx/openedx-atlas
+.. _Robeli Atlas: https://intranet.robeli.com/git/openedx-atlas
 .. _Django's collectstatic command: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#collectstatic

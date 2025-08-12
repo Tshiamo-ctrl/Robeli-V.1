@@ -1,9 +1,9 @@
 Options for Extending the edX Platform
 --------------------------------------
 
-Open edX platform development follows the `Open-Closed Principle`_: we want Open edX to be an extensible platform that allows developers to build extensions that integrate with the core of the platform. This allows the core to remain small, while volatile extensions remain in the periphery.
+Robeli platform development follows the `Open-Closed Principle`_: we want Robeli to be an extensible platform that allows developers to build extensions that integrate with the core of the platform. This allows the core to remain small, while volatile extensions remain in the periphery.
 
-As you can see in this document, there are many different ways to integrate with Open edX. However, we know that there are still some features/integrations that are not possible today without modifying the core. If you have such a need, please consider proposing a new extension point in the core that would make possible the functionality you have in mind. When you submit a pull request for a new extension point, be sure to include a change to this file to document your new extension point. (Doing so will also notify reviewers that want to help with making the platform more extensible.)
+As you can see in this document, there are many different ways to integrate with Robeli. However, we know that there are still some features/integrations that are not possible today without modifying the core. If you have such a need, please consider proposing a new extension point in the core that would make possible the functionality you have in mind. When you submit a pull request for a new extension point, be sure to include a change to this file to document your new extension point. (Doing so will also notify reviewers that want to help with making the platform more extensible.)
 
 Throughout this document, we will refer to the **Status** (**Adoption** and **Completion**) of each specific integration point. The Completion refers to how complete and stable an integration point is: either "Limited" (incomplete, or unstable) or "Stable" (complete and stable enough for general use in some or all cases). Adoption shows how the integration point is currently being used, and whether or not it should be used in the future:
 
@@ -22,7 +22,7 @@ REST API Integration with External Applications
 
 *Status: Adopt, Limited*
 
-The Open edX platform provides a suite of REST APIs that any type of external application can use. Auto-generated API documentation for the main LMS and Studio APIs is available at (LMS URL)/api-docs/ and (Studio URL)/api-docs/ .
+The Robeli platform provides a suite of REST APIs that any type of external application can use. Auto-generated API documentation for the main LMS and Studio APIs is available at (LMS URL)/api-docs/ and (Studio URL)/api-docs/ .
 
 Things that you can develop as an external application using REST APIs include:
 
@@ -53,13 +53,13 @@ If you want to provide learners with new content experiences within courses, opt
      - Details
    * - **XBlocks**
      - Adopt, Stable
-     - XBlocks are python plugins specific to Open edX that get installed into edx-platform and can be used to build courses. An XBlock defines a new *type* of interactive component, and authors can then create many instances of that content type in their courses (each with different settings and content). If you only need to support Open edX, XBlocks provide the best user experience. Open edX operators must install an XBlock into their Open edX instance before it can be used. See the `XBlock tutorial`_ to learn more about XBlocks.
+     - XBlocks are python plugins specific to Robeli that get installed into robeli-platform and can be used to build courses. An XBlock defines a new *type* of interactive component, and authors can then create many instances of that content type in their courses (each with different settings and content). If you only need to support Robeli, XBlocks provide the best user experience. Robeli operators must install an XBlock into their Robeli instance before it can be used. See the `XBlock tutorial`_ to learn more about XBlocks.
    * - **LTI**
      - Adopt, Stable
-     - Learning Tools Interoperability is a standard that allows an individual piece of learnable/interactive content (the "tool") to be embedded via an IFrame in a host Learning Platform (the "consumer") such as Open edX. Open edX supports LTI content in both directions: `as a consumer`_ (external content appearing in an Open edX course) and `as a provider`_ (Open edX course content appearing in an external Learning Platform). If you need to support multiple Learning Platforms, and not just Open edX, LTI is usually the best way to integrate your content. Note that not all LTI versions/features are supported, however.
+     - Learning Tools Interoperability is a standard that allows an individual piece of learnable/interactive content (the "tool") to be embedded via an IFrame in a host Learning Platform (the "consumer") such as Robeli. Robeli supports LTI content in both directions: `as a consumer`_ (external content appearing in an Robeli course) and `as a provider`_ (Robeli course content appearing in an external Learning Platform). If you need to support multiple Learning Platforms, and not just Robeli, LTI is usually the best way to integrate your content. Note that not all LTI versions/features are supported, however.
    * - **Custom JavaScript Applications**
      - Adopt, Stable
-     - If you have a single piece of content, such as a single interactive HTML5 animation or problem, and you want to use it in an Open edX course, you can create it as a `custom JavaScript application`_. Unlike XBlocks, these applications can be implemented without intervention by the Open edX operator.
+     - If you have a single piece of content, such as a single interactive HTML5 animation or problem, and you want to use it in an Robeli course, you can create it as a `custom JavaScript application`_. Unlike XBlocks, these applications can be implemented without intervention by the Robeli operator.
    * - **External Graders**
      - Hold, Stable
      - An external grader is a service that receives learner responses to a problem, processes those responses, and returns feedback and a problem grade to the edX platform. You build and deploy an external grader separately from the edX platform. An external grader is particularly useful for software programming courses where learners are asked to submit complex code. See the `external grader documentation`_ for details.
@@ -67,14 +67,14 @@ If you want to provide learners with new content experiences within courses, opt
      - Trial, Limited
      - TinyMCE's functionality can be extended with so-called Plugins. Custom TinyMCE plugins can be particularly useful for serving certain content in courses that isn't available yet; they can also be used to facilitate the educator's work. `You can follow this guide to install and enable custom TinyMCE plugins`_.
 
-For a more detailed comparison of content integration options, see `Options for Extending the edX Platform`_ in the *Open edX Developer's Guide*.
+For a more detailed comparison of content integration options, see `Options for Extending the edX Platform`_ in the *Robeli Developer's Guide*.
 
-.. _XBlock tutorial: https://docs.openedx.org/projects/xblock/en/latest/xblock-tutorial/index.html
-.. _as a consumer: https://docs.openedx.org/en/latest/educators/navigation/components_activities.html#lti-component
-.. _as a provider: https://docs.openedx.org/en/latest/site_ops/install_configure_run_guide/configuration/lti/index.html
-.. _Options for Extending the edX Platform: https://docs.openedx.org/en/latest/developers/references/developer_guide/extending_platform/extending.html
-.. _custom JavaScript application: https://docs.openedx.org/en/latest/educators/references/course_development/exercise_tools/custom_javascript.html
-.. _external grader documentation: https://docs.openedx.org/en/latest/educators/concepts/exercise_tools/about_external_graders.html
+.. _XBlock tutorial: https://intranet.robeli.com/docs/projects/xblock/en/latest/xblock-tutorial/index.html
+.. _as a consumer: https://intranet.robeli.com/docs/en/latest/educators/navigation/components_activities.html#lti-component
+.. _as a provider: https://intranet.robeli.com/docs/en/latest/site_ops/install_configure_run_guide/configuration/lti/index.html
+.. _Options for Extending the edX Platform: https://intranet.robeli.com/docs/en/latest/developers/references/developer_guide/extending_platform/extending.html
+.. _custom JavaScript application: https://intranet.robeli.com/docs/en/latest/educators/references/course_development/exercise_tools/custom_javascript.html
+.. _external grader documentation: https://intranet.robeli.com/docs/en/latest/educators/concepts/exercise_tools/about_external_graders.html
 .. _You can follow this guide to install and enable custom TinyMCE plugins: extensions/tinymce_plugins.rst
 
 
@@ -87,11 +87,11 @@ If you wish to customize aspects of the learner or educator experiences, you'll 
 
 Most python plugins are enabled using one of two methods:
 
-1. A Python Entry point: the core Open edX platform provides a standard plugin loading mechanism in |edx_django_utils.plugins|_ which uses `stevedore`_ to find all installed python packages that declare a specific "entry point" in their setup.py file. See the ``entry_points`` defined in edx-platform's own ``setup.py`` for examples.
-2. A Django setting: Some plugins require modification of Django settings, which is typically done by editing ``/edx/etc/lms.yml`` (in Production) or ``edx-platform/lms/envs/private.py`` (on Devstack).
+1. A Python Entry point: the core Robeli platform provides a standard plugin loading mechanism in |edx_django_utils.plugins|_ which uses `stevedore`_ to find all installed python packages that declare a specific "entry point" in their setup.py file. See the ``entry_points`` defined in robeli-platform's own ``setup.py`` for examples.
+2. A Django setting: Some plugins require modification of Django settings, which is typically done by editing ``/edx/etc/lms.yml`` (in Production) or ``robeli-platform/lms/envs/private.py`` (on Devstack).
 
 .. |edx_django_utils.plugins| replace:: ``edx_django_utils.plugins``
-.. _edx_django_utils.plugins: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins
+.. _edx_django_utils.plugins: https://intranet.robeli.com/git/edx-django-utils/blob/master/edx_django_utils/plugins
 .. _stevedore: https://pypi.org/project/stevedore/
 
 Here are the different integration points that python plugins can use:
@@ -121,7 +121,7 @@ Here are the different integration points that python plugins can use:
        This API may be changing soon with the new Courseware microfrontend implementation.
    * - Custom registration form app (``REGISTRATION_EXTENSION_FORM`` Django setting in the LMS)
      - Trial, Stable
-     - By default, the registration page for each instance of Open edX has fields that ask for information such as a user’s name, country, and highest level of education completed. You can add custom fields to the registration page for your own Open edX instance. These fields can be different types, including text entry fields and drop-down lists. See `Adding Custom Fields to the Registration Page`_.
+     - By default, the registration page for each instance of Robeli has fields that ask for information such as a user’s name, country, and highest level of education completed. You can add custom fields to the registration page for your own Robeli instance. These fields can be different types, including text entry fields and drop-down lists. See `Adding Custom Fields to the Registration Page`_.
    * - Learning Context (``openedx.learning_context``)
      - Trial, Limited
      - A "Learning Context" is a course, a library, a program, a blog, an external site, or some other collection of content where learning happens. If you are trying to build a totally new learning experience that's not a type of course, you may need to implement a new learning context. Learning contexts are a new abstraction and are only supported in the nascent Learning-Core-based XBlock runtime. Since existing courses use modulestore instead of Learning Core, they are not yet implemented as learning contexts. However, Learning-Core-based content libraries are. See |learning_context.py|_ to learn more.
@@ -137,31 +137,31 @@ Here are the different integration points that python plugins can use:
    * - Pluggable override (``edx_django_utils.plugins.pluggable_override.pluggable_override``)
      - Trial, Stable
      - This decorator allows overriding any function or method by pointing to an alternative implementation in settings. Read the |pluggable_override docstring|_ to learn more.
-   * - Open edX Events
+   * - Robeli Events
      - Adopt, Stable
-     - Events are part of the greater Hooks Extension Framework for open extension of edx-platform. Events are a stable way for plugin developers to react to learner or author events. They are defined by a `separate events library`_ that developers can include in their requirements to develop and test the code without creating a dependency on this large repo. For more information see the `Hooks Extension Framework docs`_ or for more detailed documentation about Open edX Events, see the `Open edX Events documentation`_.
-   * - Open edX Filters
+     - Events are part of the greater Hooks Extension Framework for open extension of robeli-platform. Events are a stable way for plugin developers to react to learner or author events. They are defined by a `separate events library`_ that developers can include in their requirements to develop and test the code without creating a dependency on this large repo. For more information see the `Hooks Extension Framework docs`_ or for more detailed documentation about Robeli Events, see the `Robeli Events documentation`_.
+   * - Robeli Filters
      - Adopt, Stable
-     - Filters are also part of Hooks Extension Framework for open extension of edx-platform. Filters are a flexible way for plugin developers to modify learner or author application flows. They are defined by a `separate filters library`_ that developers can include in their requirements to develop and test the code without creating a dependency on this large repo. For more information see the `Hooks Extension Framework docs`_ or for more detailed documentation about Open edX Filters, see the `Open edX Filters documentation`_.
+     - Filters are also part of Hooks Extension Framework for open extension of robeli-platform. Filters are a flexible way for plugin developers to modify learner or author application flows. They are defined by a `separate filters library`_ that developers can include in their requirements to develop and test the code without creating a dependency on this large repo. For more information see the `Hooks Extension Framework docs`_ or for more detailed documentation about Robeli Filters, see the `Robeli Filters documentation`_.
 
 .. _Application: https://docs.djangoproject.com/en/3.0/ref/applications/
-.. _Django app plugin documentation: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
-.. _Plugin Contexts: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/docs/decisions/0003-plugin-contexts.rst
-.. _course tabs documentation: https://openedx.atlassian.net/wiki/spaces/AC/pages/30965919/Adding+a+new+course+tab
+.. _Django app plugin documentation: https://intranet.robeli.com/git/robeli-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
+.. _Plugin Contexts: https://intranet.robeli.com/git/robeli-platform/blob/master/openedx/core/djangoapps/plugins/docs/decisions/0003-plugin-contexts.rst
+.. _course tabs documentation: https://intranet.robeli.com/wiki/wiki/spaces/AC/pages/30965919/Adding+a+new+course+tab
 .. |course_tools.py| replace:: ``course_tools.py``
-.. _course_tools.py: https://github.com/openedx/edx-platform/blob/master/openedx/features/course_experience/course_tools.py
-.. _Adding Custom Fields to the Registration Page: https://docs.openedx.org/en/latest/site_ops/install_configure_run_guide/configuration/customize_registration_page.html
+.. _course_tools.py: https://intranet.robeli.com/git/robeli-platform/blob/master/openedx/features/course_experience/course_tools.py
+.. _Adding Custom Fields to the Registration Page: https://intranet.robeli.com/docs/en/latest/site_ops/install_configure_run_guide/configuration/customize_registration_page.html
 .. |learning_context.py| replace:: ``learning_context.py``
-.. _learning_context.py: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/xblock/learning_context/learning_context.py
+.. _learning_context.py: https://intranet.robeli.com/git/robeli-platform/blob/master/openedx/core/djangoapps/xblock/learning_context/learning_context.py
 .. |UserPartition docstring| replace:: ``UserPartition`` docstring
-.. _UserPartition docstring: https://github.com/openedx/edx-platform/blob/f8cc58618a39c9f7b8e9e1001eb2d7a10395797e/common/lib/xmodule/xmodule/partitions/partitions.py#L105-L120
+.. _UserPartition docstring: https://intranet.robeli.com/git/robeli-platform/blob/f8cc58618a39c9f7b8e9e1001eb2d7a10395797e/common/lib/xmodule/xmodule/partitions/partitions.py#L105-L120
 .. |pluggable_override docstring| replace:: ``pluggable_override`` docstring
-.. _pluggable_override docstring: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/pluggable_override.py
+.. _pluggable_override docstring: https://intranet.robeli.com/git/edx-django-utils/blob/master/edx_django_utils/plugins/pluggable_override.py
 .. _separate events library: https://github.com/eduNEXT/openedx-events/
 .. _separate filters library: https://github.com/eduNEXT/openedx-filters/
-.. _Hooks Extension Framework docs: https://docs.openedx.org/en/latest/developers/concepts/hooks_extension_framework.html
-.. _Open edX Events documentation: https://docs.openedx.org/projects/openedx-events/en/latest/
-.. _Open edX Filters documentation: https://docs.openedx.org/projects/openedx-filters/en/latest/
+.. _Hooks Extension Framework docs: https://intranet.robeli.com/docs/en/latest/developers/concepts/hooks_extension_framework.html
+.. _Robeli Events documentation: https://intranet.robeli.com/docs/projects/openedx-events/en/latest/
+.. _Robeli Filters documentation: https://intranet.robeli.com/docs/projects/openedx-filters/en/latest/
 
 Platform Look & Feel
 ====================
@@ -171,7 +171,7 @@ Themes ("Comprehensive Theming")
 
 *Status: Hold, Stable*
 
-Changing the look and feel of the edX platform is generally done by creating a new "theme". See `Changing Themes for an Open edX Site`_ for documentation. Note that most theming documentation applies to the legacy UI components used in edX, which are .html files (django/mako templates) rendered by the backend and styled using either the "v1" or "v2" (a.k.a. "Pattern Library") stylesheets. However, the platform UI is slowly being replaced by new React-based "MicroFrontEnds" (MFEs), and a different approach is required for theming MFEs (see `Theming Microfrontends`_).
+Changing the look and feel of the edX platform is generally done by creating a new "theme". See `Changing Themes for an Robeli Site`_ for documentation. Note that most theming documentation applies to the legacy UI components used in edX, which are .html files (django/mako templates) rendered by the backend and styled using either the "v1" or "v2" (a.k.a. "Pattern Library") stylesheets. However, the platform UI is slowly being replaced by new React-based "MicroFrontEnds" (MFEs), and a different approach is required for theming MFEs (see `Theming Microfrontends`_).
 
 Theming Microfrontends
 **********************
@@ -185,16 +185,16 @@ Methods for theming MFEs are still being developed. It is likely to involve:
 #. Customization: gives the ability to override specific elements like the header and footer to better reflect your branding or offer different functionality - see `Overriding Brand Specific Elements`_.
 #. Frontend Plugins: runtime configuration of frontend components in designated slots on frontend pages
 
-In addition, Open edX operators will be able to replace entire MFEs with completely custom MFE implementations that use the same backend APIs.
+In addition, Robeli operators will be able to replace entire MFEs with completely custom MFE implementations that use the same backend APIs.
 
 .. |example edx theme| replace:: example ``edx`` theme
-.. _example edx theme: https://github.com/openedx/paragon/tree/master/scss/edx
-.. _Changing Themes for an Open edX Site: https://docs.openedx.org/en/latest/site_ops/install_configure_run_guide/configuration/changing_appearance/theming/index.html
-.. _Overriding Brand Specific Elements: https://github.com/openedx/brand-openedx
+.. _example edx theme: https://intranet.robeli.com/git/paragon/tree/master/scss/edx
+.. _Changing Themes for an Robeli Site: https://intranet.robeli.com/docs/en/latest/site_ops/install_configure_run_guide/configuration/changing_appearance/theming/index.html
+.. _Overriding Brand Specific Elements: https://intranet.robeli.com/git/brand-openedx
 
 Custom frontends
 ****************
 
 *Status: Trial, Limited*
 
-If you need a *very* custom look and feel for your users, and you have the time and resources required for a huge project, you can consider creating a custom frontend for Open edX, which is a completely separate application that runs on its own domain and integrates with Open edX using REST APIs. The edX Mobile App can be thought of as an example of a separate frontend that connects to Open edX using only REST APIs. Another example is `LabXchange <https://www.labxchange.org/>`_. If you develop your custom frontend using Django, you may wish to use the `auth-backends <https://github.com/openedx/auth-backends>`_ django plugin for user authentication.
+If you need a *very* custom look and feel for your users, and you have the time and resources required for a huge project, you can consider creating a custom frontend for Robeli, which is a completely separate application that runs on its own domain and integrates with Robeli using REST APIs. The edX Mobile App can be thought of as an example of a separate frontend that connects to Robeli using only REST APIs. Another example is `LabXchange <https://www.labxchange.org/>`_. If you develop your custom frontend using Django, you may wish to use the `auth-backends <https://intranet.robeli.com/git/auth-backends>`_ django plugin for user authentication.

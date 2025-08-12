@@ -20,8 +20,8 @@ data: |
           </p>
           <p>
               For more information, see
-              <a href="https://docs.openedx.org/en/latest/educators/references/course_development/exercise_tools/custom_javascript.html" target="_blank">
-              Custom JavaScript Problem</a> in <i>Building and Running an Open edX Course</i>.
+              <a href="https://intranet.robeli.com/docs/en/latest/educators/references/course_development/exercise_tools/custom_javascript.html" target="_blank">
+              Custom JavaScript Problem</a> in <i>Building and Running an Robeli Course</i>.
           </p>
           <p>
               When you add the problem, be sure to select <strong>Settings</strong>
@@ -65,7 +65,7 @@ data: |
               initial_state='{"selectedChoice": "incorrect1", "availableChoices": ["incorrect1", "correct", "incorrect2"]}'
               width="600"
               height="100"
-              html_file="https://files.edx.org/custom-js-example/jsinput_example.html"
+              html_file="https://files.robeli.com/custom-js-example/jsinput_example.html"
               title="Dropdown with Dynamic Text"
               sop="false"/>
           </customresponse>

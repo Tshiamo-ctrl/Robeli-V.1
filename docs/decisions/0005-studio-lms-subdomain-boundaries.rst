@@ -7,7 +7,7 @@ Proposed
 Context
 =======
 
-The ``edx-platform`` repo contains both Studio and the LMS for Open edX. These
+The ``robeli-platform`` repo contains both Studio and the LMS for Robeli. These
 two systems roughly correspond to the Content Authoring and Learning subdomains,
 but the precise separation of responsibilities is currently unclear in many
 cases. This ADR is intended to clarify those boundaries and offer guidelines for
@@ -85,7 +85,7 @@ decide that both on-campus students and alumni get the same content group
 experience, while keeping those Cohorts separate for the purposes of other parts
 of the LMS like forums discussions.
 
-A more future looking example might be the interaction between Open edX
+A more future looking example might be the interaction between Robeli
 courseware and third party forum services. The fact that certain units are
 marked as discussable topics might be a Content Authoring decision in Studio,
 while the choice of which forum service those discussions happen in might be a
@@ -101,7 +101,7 @@ think of the data relationship as a one way flow of data from Studio to the LMS.
 The LMS takes Studio data as an input that it can enrich, transform, or override
 as necessary to create the desired student learning experience.
 
-Content scheduling is a good example of this. In the early days of Open edX,
+Content scheduling is a good example of this. In the early days of Robeli,
 course teams would set start and due dates for subsections in Studio, and that
 would be the end of it. Today, we have personalized schedules, individual due
 date extensions, and more. The pattern we use to accomplish this is:

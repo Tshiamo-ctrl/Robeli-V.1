@@ -27,15 +27,15 @@ Goals
   Modulestore grabs large chunks of the course at once, leading to major variability in performance in small vs. large courses, or in courses where certain advanced features have been enabled. Serving LMS requests from simpler application data models will make the operational behavior much more predictable. The eventual goal would be to access Modulestore only during the authoring and publishing steps, and never when serving content to students.
 
 **Tests are easier to write and run faster.**
-  CourseOverviews and UserCourseOutlineData objects are much easier to create and mock for testing purposes than a tree of XBlocks, and do not suffer from complicated publishing rules. Using the modulestore also imposes a substantial performance penalty when creating and modifying courses, making modulestore access the dominant part of the edx-platform test suite running time.
+  CourseOverviews and UserCourseOutlineData objects are much easier to create and mock for testing purposes than a tree of XBlocks, and do not suffer from complicated publishing rules. Using the modulestore also imposes a substantial performance penalty when creating and modifying courses, making modulestore access the dominant part of the robeli-platform test suite running time.
 
 **Applications are more resilient to user-facing failures.**
   Many features today are at least partially implemented in Modulestore and the XBlocks that it returns. Changes in those features can cause bugs that ripple out into completely unrelated features being developed by other teams.
 
   If an LMS application queries the Modulestore when responding to a user request, then unexpected failures in shared Modulestore code will cause user-facing errors. A feature that reads Modulestore data at the time of course publish and pushes it into its own data model will still be affected by Modulestore-related bugs, but it will result in stale data and not an entirely broken experience.
 
-**We can reduce the size of the edx-platform monolith.**
-  It is possible that smaller apps like ``course_overviews`` and ``learning_sequences`` could be extracted from edx-platform and become their own app repositories. When that happens, an app that lives in its own repository could include those smaller apps as dependencies, simplifying the setup and running of tests. Modulestore has proven to be much more challenging to extract in this way, and any external apps relying on the modulestore will be forced to use dependency inversion mechanisms that are more vulnerable to breaking as edx-platform evolves. This will also advance our long term plans for separating Studio and the LMS into more separate systems.
+**We can reduce the size of the robeli-platform monolith.**
+  It is possible that smaller apps like ``course_overviews`` and ``learning_sequences`` could be extracted from robeli-platform and become their own app repositories. When that happens, an app that lives in its own repository could include those smaller apps as dependencies, simplifying the setup and running of tests. Modulestore has proven to be much more challenging to extract in this way, and any external apps relying on the modulestore will be forced to use dependency inversion mechanisms that are more vulnerable to breaking as robeli-platform evolves. This will also advance our long term plans for separating Studio and the LMS into more separate systems.
 
 
 Conversion Guide

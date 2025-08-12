@@ -1,7 +1,7 @@
-JavaScript in edx-platform
+JavaScript in robeli-platform
 ==========================
 
-All frontend code (JavaScript) has been deprecated in edx-platform, in favor of
+All frontend code (JavaScript) has been deprecated in robeli-platform, in favor of
 MFEs. See ADR 0023-frontend-code-and-eslint-removal.rst for details.
 
 This documentation is being left in place until all of the JavaScript code
@@ -10,7 +10,7 @@ has been removed.
 ES2015
 ------
 
-All JavaScript code in edx-platform should be written in ES2015.
+All JavaScript code in robeli-platform should be written in ES2015.
 ES2015 is not a framework or library -- rather, it is the latest and
 greatest revision of the JavaScript language itself, natively supported
 in all modern browsers and engines. Think of it as JavaScript's
@@ -56,7 +56,7 @@ within ``webpack.common.config.js``.
 
 The new entry's key should be the name of your module (typically this is
 the same as your filename), and its value should be the path to your
-file relative to the edx-platform root.
+file relative to the robeli-platform root.
 
 Writing Your File
 ~~~~~~~~~~~~~~~~~

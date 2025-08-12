@@ -4,15 +4,15 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: 'edx-platform'
-  description: "The monolith at the center of the Open edX platform"
+  name: 'robeli-platform'
+  description: "Robeli proprietary learning platform"
   links:
-    - url: "https://docs.openedx.org"
+    - url: "https://intranet.robeli.com/docs"
       title: "Documentation"
       icon: "Web"
   annotations:
-    openedx.org/release: "master"
+    robeli.com/release: "internal"
 spec:
-  owner: group:wg-maintenance-edx-platform
+  owner: group:robeli-platform-team
   type: 'service'
   lifecycle: 'production'

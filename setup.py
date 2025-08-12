@@ -1,5 +1,5 @@
 """  # lint-amnesty, pylint: disable=django-not-configured
-Setup script for the Open edX package.
+Setup script for the Robeli platform package.
 """
 
 from setuptools import setup
@@ -45,7 +45,7 @@ XBLOCKS_ASIDES = [
 
 
 setup(
-    name="Open edX",
+    name="Robeli Platform",
     version='0.13',
     install_requires=["setuptools"],
     requires=[],

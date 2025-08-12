@@ -159,7 +159,7 @@ Use a JWT Header to call an API
                                           'sku': None,
                                           'slug': 'audit',
                                           'suggested_prices': ''}],
-                        'course_name': 'Open edX Test Course',
+                        'course_name': 'Robeli Test Course',
                         'course_start': '2022-04-09T00:00:00Z',
                         'enrollment_end': None,
                         'enrollment_start': None,

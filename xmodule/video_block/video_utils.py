@@ -57,8 +57,8 @@ def rewrite_video_url(cdn_base_url, original_video_url):
 
     parsed = urlparse(original_video_url)
     # Contruction of the rewrite url is intentionally very flexible of input.
-    # For example, https://www.edx.org/ + /foo.html will be rewritten to
-    # https://www.edx.org/foo.html.
+    # For example, https://www.robeli.com/ + /foo.html will be rewritten to
+    # https://www.robeli.com/foo.html.
     rewritten_url = cdn_base_url.rstrip("/") + "/" + parsed.path.lstrip("/")
     validator = URLValidator()
 
@@ -79,7 +79,7 @@ def get_poster(video):
 
     youtube_streams is string that contains '1.00:youtube_id'
 
-    Poster metadata is dict of youtube url for image thumbnail and edx logo
+    Poster metadata is dict of youtube url for image thumbnail and Robeli logo
     """
     if not video.bumper.get("enabled"):
         return
@@ -91,7 +91,7 @@ def get_poster(video):
         poster["url"] = settings.YOUTUBE['IMAGE_API'].format(youtube_id=youtube_id)
         poster["type"] = "youtube"
     else:
-        poster["url"] = "https://www.edx.org/sites/default/files/theme/edx-logo-header.png"
+        poster["url"] = "https://www.robeli.com/assets/robeli-logo-header.png"
         poster["type"] = "html5"
 
     return poster

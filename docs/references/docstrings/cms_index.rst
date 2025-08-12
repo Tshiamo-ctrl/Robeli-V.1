@@ -1,7 +1,7 @@
 cms
 ***
 
-The ``cms`` (course management system) directory in edx-platform is home to
+The ``cms`` (course management system) directory in robeli-platform is home to
 the code needed for the Course Authoring Studio which is not also needed for
 the LMS.
 

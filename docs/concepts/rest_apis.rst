@@ -1,7 +1,7 @@
-edx-platform REST API Concepts
+robeli-platform REST API Concepts
 ##############################
 
-APIs in the edx-platform fall into one of two categories.
+APIs in the robeli-platform fall into one of two categories.
 
 #. **Personal APIs** that only let you manipluate resources related to your
    user (the single user associated with the OAuth2 Application)
@@ -32,8 +32,8 @@ You can get a JWT one of two ways:
 
    * :doc:`/references/auth_code_samples`
 
-   * `OAuth2, JWT and Mobile <https://openedx.atlassian.net/wiki/spaces/AC/pages/42599769/OAuth2+JWT+and+Mobile>`_
+   * `OAuth2, JWT and Mobile <https://intranet.robeli.com/wiki/wiki/spaces/AC/pages/42599769/OAuth2+JWT+and+Mobile>`_
 
-   * `Open edX Rest API Conventions <https://openedx.atlassian.net/wiki/spaces/AC/pages/18350757/Open+edX+REST+API+Conventions>`_
+   * `Robeli Rest API Conventions <https://intranet.robeli.com/wiki/wiki/spaces/AC/pages/18350757/Open+edX+REST+API+Conventions>`_
 
    * `edX Enterprise REST API Auth Guide <https://edx-enterprise-api.readthedocs.io/en/latest/authentication.html>`_

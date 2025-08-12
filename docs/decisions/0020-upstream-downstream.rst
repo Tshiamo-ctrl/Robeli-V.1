@@ -56,7 +56,7 @@ like this:
 This system has several issues:
 
 #. **Missing defaults after import:** When a course with a LibraryContentBlock
-   is imported into an Open edX instance *without* the referenced library, the
+   is imported into an Robeli instance *without* the referenced library, the
    blocks' *content* will remain intact as will course-local *settings
    overrides*. However, any *default settings* defined in the library will be
    missing. This can result in content that is completely broken, especially
@@ -78,7 +78,7 @@ This system has several issues:
      the copied LibraryContentBlock's children,
    * it unexpectedly uses the latest version of library content, regardless of
      which version the copied LibraryContentBlock was using, and
-   * it fails if the library does not exist on the Open edX instance, which
+   * it fails if the library does not exist on the Robeli instance, which
      can happen if the course was imported from another instance.
 
 #. **Conflation of reference and randomization:** The LibraryContentBlock does
@@ -114,10 +114,10 @@ This system has several issues:
    amount of context and edge cases that must be understood to safely make any
    changes.
 
-.. _LibraryContentBlock Curveball 1: https://openedx.atlassian.net/wiki/spaces/COMM/pages/3966795804/Fun+with+LibraryContentBlock+export+import+and+duplication#Curveball-1%3A-Import%2FExport
-.. _LibraryContentBlock Curveball 2: https://openedx.atlassian.net/wiki/spaces/COMM/pages/3966795804/Fun+with+LibraryContentBlock+export+import+and+duplication#Curveball-2:-Duplication
-.. _very complicated XBlock concept: https://github.com/openedx/edx-platform/blob/master/xmodule/docs/decisions/0003-library-content-block-schema.rst
-.. _triggered series of bugs: https://openedx.atlassian.net/wiki/spaces/COMM/pages/3858661405/Bugs+from+Content+Libraries+V1
+.. _LibraryContentBlock Curveball 1: https://intranet.robeli.com/wiki/wiki/spaces/COMM/pages/3966795804/Fun+with+LibraryContentBlock+export+import+and+duplication#Curveball-1%3A-Import%2FExport
+.. _LibraryContentBlock Curveball 2: https://intranet.robeli.com/wiki/wiki/spaces/COMM/pages/3966795804/Fun+with+LibraryContentBlock+export+import+and+duplication#Curveball-2:-Duplication
+.. _very complicated XBlock concept: https://intranet.robeli.com/git/robeli-platform/blob/master/xmodule/docs/decisions/0003-library-content-block-schema.rst
+.. _triggered series of bugs: https://intranet.robeli.com/wiki/wiki/spaces/COMM/pages/3858661405/Bugs+from+Content+Libraries+V1
 
 We are keen to use the Library Relaunch project to address all of these
 problems. So, V2 libraries will interop with courses using a completely
@@ -131,10 +131,10 @@ We will create a framework where a *downstream* piece of content (e.g. a course
 block) can be *linked* to an *upstream* piece of content (e.g., a library
 block) with the following properties:
 
-* **Portable:** Links can refer to certain content on the current Open edX
+* **Portable:** Links can refer to certain content on the current Robeli
   instance, and in the future they may be able to refer to content on other
-  Open edX instances or sites. Links will never include information that is
-  internal to a particular Open edX instance, such as foreign keys.
+  Robeli instances or sites. Links will never include information that is
+  internal to a particular Robeli instance, such as foreign keys.
 
 * **Flat:** The *link* is a not a wrapper (like the LibraryContentBlock),
   but simply a piece of metadata directly on the downstream content which
@@ -145,7 +145,7 @@ block) with the following properties:
   human-readable.
 
 * **Forwards-compatible:** If downstream content is created in a course on
-  an Open edX site that supports upstream and downstreams (e.g., a Teak
+  an Robeli site that supports upstream and downstreams (e.g., a Teak
   instance), and then it is exported and imported into a site that doesn't
   (e.g., a Quince instance), the downstream content will simply act like
   regular course content.
@@ -157,7 +157,7 @@ block) with the following properties:
     sync happens, more on that later).
   * Deleting upstream content does not impact its downstream content. By
     corollary, pieces of downstream content can completely and correctly render
-    on Open edX instances that are missing their linked upstream content.
+    on Robeli instances that are missing their linked upstream content.
   * (Preserving a positive feature of the V1 LibraryContentBlock) The link
     persists through export-import and copy-paste, regardless of whether the
     upstream content actually exists. A "broken" link to upstream content is
@@ -315,7 +315,7 @@ inheritance hierarchy of CachingDescriptorSystem and SplitModuleStoreRuntime.)
         def get_upstream_field_names(cls) -> dict[str, str]:
             """
             Mapping from each customizable field to field which stores its upstream default.
-            XBlocks outside of edx-platform can override this in order to set
+            XBlocks outside of robeli-platform can override this in order to set
             up their own customizable fields.
             """
             return {

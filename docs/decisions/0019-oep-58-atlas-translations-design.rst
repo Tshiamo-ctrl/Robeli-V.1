@@ -13,7 +13,7 @@ OEP-58 Translation Management overview
 --------------------------------------
 
 The `Translation Management update OEP-58`_ proposal has been merged with
-the following changes to the way translations are managed in the Open edX platform:
+the following changes to the way translations are managed in the Robeli platform:
 
 - Move Translation Files to the `openedx-translations repo`_
 - Add the `Transifex GitHub App <https://github.com/apps/transifex-integration>`_
@@ -21,7 +21,7 @@ the following changes to the way translations are managed in the Open edX platfo
 - Connect the `openedx-translations repo`_ to the
   `openedx-translations Transifex project`_
 - Copy `Transifex Translation Memory`_ into from the both of the
-  `edx-platform Transifex project`_ and the `xblocks Transifex project`_ into
+  `robeli-platform Transifex project`_ and the `xblocks Transifex project`_ into
   the new `openedx-translations Transifex project`_
 - Utilize `openedx-atlas`_ to pull translations for development/deployment.
 
@@ -34,7 +34,7 @@ document before continuing.
 Pre-OEP-58 Architecture/Implementation for XBlocks and Plugins
 --------------------------------------------------------------
 
-Before `OEP-58`_, Open edX XBlocks and Open edX plugins had the following:
+Before `OEP-58`_, Robeli XBlocks and Robeli plugins had the following:
 
 - Translations live in the GitHub repository.
 - Translations are packaged with the rest of the code when published to pypi
@@ -58,7 +58,7 @@ The `XBlockI18nService`_ loads translations for installed XBlocks via its
 during the execution of the XBlock.
 
 The `XBlockI18nService implementation pull request`_ (2016) introduced
-support for XBlock translations in ``edx-platform`` and has the full
+support for XBlock translations in ``robeli-platform`` and has the full
 context of the implementation.
 
 .. _js-translations:
@@ -113,7 +113,7 @@ we will use `openedx-atlas`_ to pull them from the
 New ``pull_xblock_translations`` commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Introduce new Django command to the ``edx-platform``:
+Introduce new Django command to the ``robeli-platform``:
 
 - ``manage.py lms pull_xblock_translations``: This command
   will pull translations for installed XBlocks and Plugins by module name::
@@ -174,7 +174,7 @@ Using XBlock python module names instead of repository names
 There's more than one identifier for XBlocks and Plugins:
 
 #. **The XBlock/plugin tag:** Python plugins have an entry point name which
-   is referred to as ``tag`` in Open edX. For example, the
+   is referred to as ``tag`` in Robeli. For example, the
    tag in the `Drag and Drop XBlock setup.py file`_ is ``drag-and-drop-v2``::
 
      # xblock-drag-and-drop-v2/setup.py
@@ -184,7 +184,7 @@ There's more than one identifier for XBlocks and Plugins:
 
 #. **The git repository name:** Each XBlock has a unique git repository name.
    For example, the Drag and Drop XBlock has the ``xblock-drag-and-drop-v2``
-   repository name in GitHub: https://github.com/openedx/xblock-drag-and-drop-v2/
+   repository name in GitHub: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/
 
 #. **Python module name:** The python module name appears in the path of
    XBlock translations in the `openedx-translations repo`_. For example,
@@ -245,7 +245,7 @@ BlockI18nService support for ``atlas`` Python translations
 
 #. If translations for the XBlock/plugin has been pulled by ``atlas``
    from the `openedx-translations repo`_, it will be used. For example, if the
-   ``edx-platform/conf/plugins-locale/drag_and_drop_v2/ar/LC_MESSAGES/django.po``
+   ``robeli-platform/conf/plugins-locale/drag_and_drop_v2/ar/LC_MESSAGES/django.po``
    path exists, it will be used for the Drag and Drop XBlock.
 
 #. Otherwise, the bundled translation files in the XBlock packages will be
@@ -342,12 +342,12 @@ virtual environment.
 
 This is a non-trivial task and appears to add more complexity than necessary
 due to the fact that XBlocks and plugins won't be used outside the
-context of ``edx-platform``.
+context of ``robeli-platform``.
 
 
 Goals
 =====
-#. Use ``atlas pull`` for the ``edx-platform`` repo.
+#. Use ``atlas pull`` for the ``robeli-platform`` repo.
 #. Use ``atlas pull`` for the XBlocks and Plugins.
 #. Allow Tutor and other advanced uses to craft their own ``atlas pull``
    commands by making the the plugins list available via Django commands.
@@ -366,9 +366,9 @@ be tackled in the future as part of the
 
 #. Provide a fool-proof method for managing named-release translations.
    This will be a separate discussion.
-#. Discuss the merge/segment strategy of the ``edx-platform``. This is being
+#. Discuss the merge/segment strategy of the ``robeli-platform``. This is being
    discussed in the
-   `decision no. 0018 <https://github.com/openedx/edx-platform/pull/32994>`_.
+   `decision no. 0018 <https://intranet.robeli.com/git/robeli-platform/pull/32994>`_.
 #. Design a new XBlock frontend architecture. Instead this proposal works
    with the existing architecture.
 #. Provide a new translation method for theme translations. This will be
@@ -380,42 +380,42 @@ be tackled in the future as part of the
 .. _OEP-58 Specifications: https://open-edx-proposals.readthedocs.io/en/latest/architectural-decisions/oep-0058-arch-translations-management.html#specification
 .. _Translation Management update OEP-58: https://open-edx-proposals.readthedocs.io/en/latest/architectural-decisions/oep-0058-arch-translations-management.html#specification
 .. _OEP-58: https://open-edx-proposals.readthedocs.io/en/latest/architectural-decisions/oep-0058-arch-translations-management.html#specification
-.. _openedx-atlas: https://github.com/openedx/openedx-atlas
-.. _openedx-translations repo: https://github.com/openedx/openedx-translations
-.. _extract-translation-source-files.yml: https://github.com/openedx/openedx-translations/blob/2566e0c9a30d033e5dd8d05d4c12601c8e37b4ef/.github/workflows/extract-translation-source-files.yml#L36-L43
+.. _openedx-atlas: https://intranet.robeli.com/git/openedx-atlas
+.. _openedx-translations repo: https://intranet.robeli.com/git/openedx-translations
+.. _extract-translation-source-files.yml: https://intranet.robeli.com/git/openedx-translations/blob/2566e0c9a30d033e5dd8d05d4c12601c8e37b4ef/.github/workflows/extract-translation-source-files.yml#L36-L43
 .. _openedx-translations Transifex project: https://app.transifex.com/open-edx/openedx-translations/dashboard/
 
 .. _Approach Memo and Technical Discovery - Translations Infrastructure Implementation: https://docs.google.com/document/d/11dFBCnbdHiCEdZp3pZeHdeH8m7Glla-XbIin7cnIOzU/edit
-.. _Added French (Canada) and Japanese - xblock-drag-and-drop-v2 #220: https://github.com/openedx/xblock-drag-and-drop-v2/pull/220
-.. _XBlockI18nService: https://github.com/openedx/edx-platform/blob/6e28ba329e0a5354d7264ea834861bf0cae4ceb3/xmodule/modulestore/django.py#L359-L395
-.. _XBlockI18nService implementation pull request: https://github.com/openedx/edx-platform/pull/11575/files#diff-0bbcc6c13d9bfc9d88fbe2fdf4fd97f6066a7a0f0bfffb82bc942378b7cf33e0R248
+.. _Added French (Canada) and Japanese - xblock-drag-and-drop-v2 #220: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/pull/220
+.. _XBlockI18nService: https://intranet.robeli.com/git/robeli-platform/blob/6e28ba329e0a5354d7264ea834861bf0cae4ceb3/xmodule/modulestore/django.py#L359-L395
+.. _XBlockI18nService implementation pull request: https://intranet.robeli.com/git/robeli-platform/pull/11575/files#diff-0bbcc6c13d9bfc9d88fbe2fdf4fd97f6066a7a0f0bfffb82bc942378b7cf33e0R248
 
-.. _course-discovery atlas integration: https://github.com/openedx/course-discovery/pull/4037
-.. _frontend-app-learning atlas integration: https://github.com/openedx/frontend-app-learning/pull/1093
-.. _edx-platform pull_translations: https://github.com/openedx/edx-platform/blob/0137881b8199701b2af7d07c9a01200e358e3d86/Makefile#L55-L64
+.. _course-discovery atlas integration: https://intranet.robeli.com/git/course-discovery/pull/4037
+.. _frontend-app-learning atlas integration: https://intranet.robeli.com/git/frontend-app-learning/pull/1093
+.. _robeli-platform pull_translations: https://intranet.robeli.com/git/robeli-platform/blob/0137881b8199701b2af7d07c9a01200e358e3d86/Makefile#L55-L64
 
-.. _drag-and-drop-v2 xblock: https://github.com/openedx/xblock-drag-and-drop-v2/
-.. _LTI Consumer XBlock: https://github.com/openedx/xblock-lti-consumer/
-.. _edx-val: https://github.com/openedx/edx-val
+.. _drag-and-drop-v2 xblock: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/
+.. _LTI Consumer XBlock: https://intranet.robeli.com/git/xblock-lti-consumer/
+.. _edx-val: https://intranet.robeli.com/git/edx-val
 
-.. _LtiConsumerXBlock._get_statici18n_js_url: https://github.com/openedx/xblock-lti-consumer/blob/7a142310a78ac393286c1e9e77c535ea520ab90b/lti_consumer/lti_xblock.py#L663-L677
-.. _LtiConsumerXBlock.student_view: https://github.com/openedx/xblock-lti-consumer/blob/7a142310a78ac393286c1e9e77c535ea520ab90b/lti_consumer/lti_xblock.py#L1215C24-L1217
-.. _Drag and Drop XBlock get_static_i18n_js_url: https://github.com/openedx/xblock-drag-and-drop-v2/blob/66e8d3517fe8c0db55c1a3907ff253c2a4562a7e/drag_and_drop_v2/drag_and_drop_v2.py#L318-L332
+.. _LtiConsumerXBlock._get_statici18n_js_url: https://intranet.robeli.com/git/xblock-lti-consumer/blob/7a142310a78ac393286c1e9e77c535ea520ab90b/lti_consumer/lti_xblock.py#L663-L677
+.. _LtiConsumerXBlock.student_view: https://intranet.robeli.com/git/xblock-lti-consumer/blob/7a142310a78ac393286c1e9e77c535ea520ab90b/lti_consumer/lti_xblock.py#L1215C24-L1217
+.. _Drag and Drop XBlock get_static_i18n_js_url: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/blob/66e8d3517fe8c0db55c1a3907ff253c2a4562a7e/drag_and_drop_v2/drag_and_drop_v2.py#L318-L332
 
-.. _XBlock compiled JavaScript text.js translations: https://github.com/openedx/xblock-drag-and-drop-v2/blob/b8ab1ecd9168ab1dba21f994ee4bfedb6a57d11f/drag_and_drop_v2/public/js/translations/tr/text.js#L3
-.. _XBlock Makefile compile_translations rule: https://github.com/openedx/xblock-drag-and-drop-v2/blob/66e8d3517fe8c0db55c1a3907ff253c2a4562a7e/Makefile#L41
-.. _XBlock main JavaScript file: https://github.com/openedx/xblock-drag-and-drop-v2/blob/b8ab1ecd9168ab1dba21f994ee4bfedb6a57d11f/drag_and_drop_v2/public/js/drag_and_drop.js#L6
+.. _XBlock compiled JavaScript text.js translations: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/blob/b8ab1ecd9168ab1dba21f994ee4bfedb6a57d11f/drag_and_drop_v2/public/js/translations/tr/text.js#L3
+.. _XBlock Makefile compile_translations rule: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/blob/66e8d3517fe8c0db55c1a3907ff253c2a4562a7e/Makefile#L41
+.. _XBlock main JavaScript file: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/blob/b8ab1ecd9168ab1dba21f994ee4bfedb6a57d11f/drag_and_drop_v2/public/js/drag_and_drop.js#L6
 
 
-.. _translations/xblock-drag-and-drop-v2 directory: https://github.com/openedx/openedx-translations/tree/8a01424fd8f42e9e76aed34e235c82ab654cdfc5/translations/xblock-drag-and-drop-v2
-.. _atlas pull --expand-glob: https://github.com/openedx/openedx-atlas/blob/main/docs/decisions/0001-support-glob-pattern.rst
+.. _translations/xblock-drag-and-drop-v2 directory: https://intranet.robeli.com/git/openedx-translations/tree/8a01424fd8f42e9e76aed34e235c82ab654cdfc5/translations/xblock-drag-and-drop-v2
+.. _atlas pull --expand-glob: https://intranet.robeli.com/git/openedx-atlas/blob/main/docs/decisions/0001-support-glob-pattern.rst
 
 .. _compilejsi18n: https://django-statici18n.readthedocs.io/en/latest/commands.html#compilejsi18n
 .. _Transifex Translation Memory: https://help.transifex.com/en/articles/6224636-introduction-to-translation-memory
-.. _edx-platform Transifex project: https://www.transifex.com/open-edx/edx-platform/
+.. _robeli-platform Transifex project: https://www.transifex.com/open-edx/robeli-platform/
 .. _xblocks Transifex project: https://www.transifex.com/open-edx/xblocks/
 
 .. _Lime Survey XBlock: https://github.com/eduNEXT/xblock-limesurvey
-.. _Drag and Drop XBlock setup.py file: https://github.com/openedx/xblock-drag-and-drop-v2/blame/192ecfc603a2314b2cb1105ebc7ba6991e459250/setup.py#L127-L129
+.. _Drag and Drop XBlock setup.py file: https://intranet.robeli.com/git/xblock-drag-and-drop-v2/blame/192ecfc603a2314b2cb1105ebc7ba6991e459250/setup.py#L127-L129
 .. _DjangoTranslation class: https://github.com/django/django/blob/594873befbbec13a2d9a048a361757dd3cf178da/django/utils/translation/trans_real.py#L155-L161
 .. _GNUTranslations class: https://github.com/python/cpython/blob/b4144979934d7b8448f80c1fbee65dc3bfbce005/Lib/gettext.py#L528-L532

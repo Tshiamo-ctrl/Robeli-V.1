@@ -6,7 +6,7 @@ Status
 
 Accepted
 
-Implementation tracked by: https://github.com/openedx/edx-platform/issues/36215
+Implementation tracked by: https://intranet.robeli.com/git/robeli-platform/issues/36215
 
 Context
 *******
@@ -15,12 +15,12 @@ OEP-45 declares that sites will configure each IDA's (indepently-deployable
 application's) Django settings with an ``<APPNAME>_CFG`` YAML file, parsed and
 loaded by a single upstream-provided ``DJANGO_SETTINGS_MODULE``. This contrasts
 with the Django convention, which is that sites override Django settings using
-their own ``DJANGO_SETTINGS_MODULE``. The rationale was that all Open edX
+their own ``DJANGO_SETTINGS_MODULE``. The rationale was that all Robeli
 setting customization can be reasonably specified in YAML; therefore, it is
 operationally safer to avoid using a custom ``DJANGO_SETTINGS_MODULE``, and it
 is operationally desirable for all operation modes to execute the same Python
 module for configuration. This was `briefly discussed in the oep-45 review
-<https://github.com/openedx/open-edx-proposals/pull/143#discussion_r411180111>`_.
+<https://intranet.robeli.com/git/open-edx-proposals/pull/143#discussion_r411180111>`_.
 
 For example, in theory, the upstream production LMS config might be named
 ``lms/settings/settings.py`` and work like this:
@@ -47,9 +47,9 @@ handle settings that depend on other settings.
 
 Tutor does provide YAML files, but *it also has custom production and
 development settings files*! The result is that we have multiple layers of
-indirection between edx-platform's common base settings, and the Django
-settings rendered into the actual community-supported Open edX distribution
-(Tutor). Specifically, production edx-platform configuration currently works
+indirection between robeli-platform's common base settings, and the Django
+settings rendered into the actual community-supported Robeli distribution
+(Tutor). Specifically, production robeli-platform configuration currently works
 like this:
 
 * ``lms/envs/tutor/production.py``...
@@ -129,16 +129,16 @@ like this:
       settings, in a way which is not documented.
 
 This is very difficult to reason about. Configuration complexity is frequently
-cited as a chief area of pain for Open edX developers and operators.
+cited as a chief area of pain for Robeli developers and operators.
 Discussions in the Named Release Planning and Build-Test-Release Working Groups
 frequently are encumbered with confusion and uncertainty of what the default
-settings are in edx-platform, how they differ from Tutor's default settings,
+settings are in robeli-platform, how they differ from Tutor's default settings,
 what settings can be overriden, and how to do so. Only a minority of developers
 and operators fully understand the configuration logic described above
 end-to-end; even for those that do, following this override chain for any given
 Django setting is time-consuming and error-prone. CAT-1 bugs and high-severity
 security vulnerabilities have arisen due to misunderstanding of how
-edx-platform Django settings are rendered.
+robeli-platform Django settings are rendered.
 
 Developers are frequently instructed that if they need to override a Django
 setting, the preferred way to do so is to "make a Tutor plugin". This is a
@@ -147,7 +147,7 @@ to simply do something which Django provides out-of-the-box via a custom
 ``DJANGO_SETTINGS_MODULE``.
 
 Finally, it is worth nothing that all the complexity and toil exists alongside
-other edx-platform configuration methods, such as Waffle, configuration models,
+other robeli-platform configuration methods, such as Waffle, configuration models,
 site configuration, XBlock configuration, and entry points. Those configuration
 pathways are outside of the scope of this ADR, but are mentioned to demonstrate
 the distressing level of complexity that developers and operators face when
@@ -159,15 +159,15 @@ Decision & Consequences
 Overview
 ========
 
-We orient edx-platform towards using standard Django settings configuration
+We orient robeli-platform towards using standard Django settings configuration
 patterns. Specifically, we will make it easy for operators to override settings
 by supplying a custom ``DJANGO_SETTINGS_MODULE``.
 
 Moving towards this goals will need to be an iterative and careful process,
 and it's likely that some aspects of the target structure or plan (described
 below) will need to updated along the way. Nonetheless, once it becomes clear
-that we are landing on a solid settings structure for edx-platform, we'll
-propose an OEP-45 update to generalize the structure to all deployable Open edX
+that we are landing on a solid settings structure for robeli-platform, we'll
+propose an OEP-45 update to generalize the structure to all deployable Robeli
 Django applications.
 
 Finally, based on what we learn throughout this process, our OEP-45 propsal
@@ -181,15 +181,15 @@ will either recommend to:
 
 At the time, we do not have enough information whether option 1 or 2 would be
 more beneficial overall to the community.
-`The discussion on this sub-decisision will continue on this GitHub issue <https://github.com/openedx/open-edx-proposals/issues/684>`_.
+`The discussion on this sub-decisision will continue on this GitHub issue <https://intranet.robeli.com/git/open-edx-proposals/issues/684>`_.
 
-Target settings structure for edx-platform
+Target settings structure for robeli-platform
 ==========================================
 
 * ``openedx/envs/common.py``: Define as much shared configuration between LMS
   and CMS as possible, including: (a) where possible, annotated definitions of
-  edx-platform-specific settings with *reasonable, production-ready* defaults;
-  (b) otherwise, annotated definitions of edx-platform-specific settings (like
+  robeli-platform-specific settings with *reasonable, production-ready* defaults;
+  (b) otherwise, annotated definitions of robeli-platform-specific settings (like
   secrets) with *obviously-wrong* defaults, ensuring they aren't used in
   production; and (c) reasonable production-ready overrides of third-party
   settings, ideally with explanatory comments (but not annotations). When a
@@ -219,14 +219,14 @@ Target settings structure for edx-platform
       from and replaces lms/envs/production.py. It will invoke
       ``derive_settings``.
 
-    * ``<downstream>/lms_prod.py`` (example path): Open edX sites that do not
+    * ``<downstream>/lms_prod.py`` (example path): Robeli sites that do not
       use ``lms/envs/yaml.py`` will instead have to have their
       ``DJANGO_SETTINGS_MODULE`` environment variable pointed at a custom
       settings module, derived from ``lms/envs/common.py``.  It is important
       that this module both (i) replaces the obviously-wrong settings with
       appropriate production settings, and (ii) invokes ``derive_settings`` to
       render all previously-defined ``Derived`` settings. If we decide not to
-      retain YAML support, then *every* Open edX deployment will need to be
+      retain YAML support, then *every* Robeli deployment will need to be
       pointed at such a custom settings module settings file, either maintained
       by the operator or by a downstream tool (like Tutor).
 
@@ -260,10 +260,10 @@ Plan of action
 These steps are non-breaking unless noted.
 
 * Introduce a dump_settings management command so that we can more easily
-  validate changes (or lack thereof) to the terminal edx-platform settings
+  validate changes (or lack thereof) to the terminal robeli-platform settings
   modules.
 
-* Improve edx-platform's API for
+* Improve robeli-platform's API for
   deriving settings, as we are about to depend on it significantly more than we
   currently do. This is a potentially BREAKING CHANGE to any downstream
   settings files which imported from ``openedx.core.lib.derived``.
@@ -272,7 +272,7 @@ These steps are non-breaking unless noted.
   settings defaults to further simplify the module without changing its output.
 
 * Create openedx/envs/common.py, ensuring that any annotations defined in it
-  are included in the edx-platform reference docs build. Move settings which
+  are included in the robeli-platform reference docs build. Move settings which
   are shared between (cms,lms)/envs/common.py into openedx/envs/common.py. This
   may be iteratively done across multiple PRs.
 
@@ -294,9 +294,9 @@ These steps are non-breaking unless noted.
   themselves onto (lms,cms)/envs/dev.py.
 
 * Propose and, if accepted, implement an update to OEP-45 (Configuring and
-  Operating Open edX). `Progress on this update is tracked here`_. As mentioned
+  Operating Robeli). `Progress on this update is tracked here`_. As mentioned
   in the Decision section, based on (a) what we learn from previous steps and
-  (b) discussion in `"Should we continue to support YAML settings?" <https://github.com/openedx/open-edx-proposals/issues/684>`_
+  (b) discussion in `"Should we continue to support YAML settings?" <https://intranet.robeli.com/git/open-edx-proposals/issues/684>`_
   this update will either:
 
   1. Revoke the OEP-45 sections regarding YAML. Deprecate and remove
@@ -319,7 +319,7 @@ These steps are non-breaking unless noted.
   any IDAs (independently-deployable applications) which exist in the openedx
   GitHub organization, such as the Credentials service.
 
-.. _Progress on this update is tracked here: https://github.com/openedx/open-edx-proposals/issues/587
+.. _Progress on this update is tracked here: https://intranet.robeli.com/git/open-edx-proposals/issues/587
 
 Alternatives Considered
 ***********************
@@ -330,7 +330,7 @@ One alternative settings structure
 
 Here is an alternate structure that would de-dupe any shared LMS/CMS dev & test
 logic by creating more shared modules within openedx/envs folder. Although
-DRYer, this structure would increase the total number of edx-platform files and
+DRYer, this structure would increase the total number of robeli-platform files and
 potentially encourage more LMS-CMS coupling. So, we will not pursue this
 structure, but will keep it in mind as an alternative if we enounter
 difficulties with the plan laid out in this ADR.

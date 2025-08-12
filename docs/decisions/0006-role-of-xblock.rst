@@ -13,7 +13,7 @@ Check for the ``due`` attribute. What other XBlock content does it contain? Ask
 the XBlock for its children. The course content was an object graph of XBlocks
 that were free to implement this sort of functionality in different and
 potentially very powerful ways, allowing for rapid experimentation in grading,
-navigation, etc. This was especially important for edx-platform, which started
+navigation, etc. This was especially important for robeli-platform, which started
 life as a rapidly developed prototype for courseware.
 
 Unfortunately, such an open ended system made it extremely difficult to make
@@ -65,7 +65,7 @@ the all-encompassing role it once played in courseware:
   own APIs. This has vastly increased the operational stability of the platform.
 * LTI support has been extracted from ``LtiConsumerXBlock``, so that LTI
   integration can happen outside the XBlock runtime.
-* There is active planning to add limited QTI support to Open edX.
+* There is active planning to add limited QTI support to Robeli.
 * The ``learning_sequence`` application is being developed to take over Section
   and Sequence level navigation, decoupling those concepts from the XBlock
   runtime in the LMS.
@@ -78,7 +78,7 @@ the all-encompassing role it once played in courseware:
 At the same time, it's important to note that there are hundreds of XBlocks in
 existence and a vast quantity of valuable content that has been written for
 those XBlocks. Preserving the viability of this content is critical to the
-success of Open edX.
+success of Robeli.
 
 
 Decision
@@ -125,7 +125,7 @@ Consequences
 A DEPR will be created for removing the ability for XBlocks to reach outside
 their unit in various ways, such as calling ``get_parent`` above the Unit level
 or ``get_course`` to get the root Course XBlock. This would likely happen in the
-Lilac timeframe. XBlocks that are part of the default install of Open edX will
+Lilac timeframe. XBlocks that are part of the default install of Robeli will
 be updated as necessary.
 
 

@@ -8,8 +8,8 @@ data: |
       <p>In drag and drop problems, students respond to a question by dragging text or objects to a specific location on an image.</p>
       <p>
           For more information, see
-          <a href="https://docs.openedx.org/en/latest/educators/references/course_development/exercise_tools/guide_drag_and_drop.html" target="_blank">
-          Drag and Drop Problem (Deprecated)</a> in <i>Building and Running an Open edX Course</i>.
+          <a href="https://intranet.robeli.com/docs/en/latest/educators/references/course_development/exercise_tools/guide_drag_and_drop.html" target="_blank">
+          Drag and Drop Problem (Deprecated)</a> in <i>Building and Running an Robeli Course</i>.
       </p>
       <p>
           When you add the problem, be sure to select <strong>Settings</strong>
@@ -20,7 +20,7 @@ data: |
       <customresponse>
           <h3>Simple Drag and Drop</h3>
           <p>Drag each word in the scrollbar to the bucket that matches the number of letters in the word.</p>
-              <drag_and_drop_input img="https://studio.edx.org/c4x/edX/DemoX/asset/L9_buckets.png">
+              <drag_and_drop_input img="https://studio.robeli.com/c4x/edX/DemoX/asset/L9_buckets.png">
                   <draggable id="1" label="a"/>
                   <draggable id="2" label="bog"/>
                   <draggable id="3" label="droll"/>
@@ -56,7 +56,7 @@ data: |
         <customresponse>
             <h3>Drag and Drop with Outline</h3>
             <p>Label the hydrogen atoms connected with the left carbon atom.</p>
-            <drag_and_drop_input img="https://studio.edx.org/c4x/edX/DemoX/asset/ethglycol.jpg" target_outline="true" one_per_target="true" no_labels="true" label_bg_color="rgb(222, 139, 238)">
+            <drag_and_drop_input img="https://studio.robeli.com/c4x/edX/DemoX/asset/ethglycol.jpg" target_outline="true" one_per_target="true" no_labels="true" label_bg_color="rgb(222, 139, 238)">
                 <draggable id="1" label="Hydrogen" />
                 <draggable id="2" label="Hydrogen" />
                 <target id="t1_o" x="10" y="67" w="100" h="100"/>

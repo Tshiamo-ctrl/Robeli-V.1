@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: Open edX API
-  description: APIs for access to Open edX information
+  title: Robeli API
+  description: APIs for access to Robeli information
   contact:
     email: api-access@example.com
   version: v1
@@ -8421,7 +8421,7 @@ paths:
         that a user has for course-runs within a given program.
         Fields included are the title, upcoming due dates, etc.
         This API endpoint is intended for use with the
-        [Program Learner Portal MFE](https://github.com/openedx/frontend-app-learner-portal-programs).
+        [Program Learner Portal MFE](https://intranet.robeli.com/git/frontend-app-learner-portal-programs).
 
         It is important to note that the set of enrollments that this endpoint returns
         is different than a user's set of *program-course-run enrollments*.

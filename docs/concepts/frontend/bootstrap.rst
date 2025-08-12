@@ -27,9 +27,9 @@ consistently. EdX is using `Bootstrap 4`_ which is a reimplemented version using
 Sass and that is currently in beta release.
 
 All edX applications should use the `edx-bootstrap`_ package that can be
-installed via `npm`_. This package provides two themes (a default Open edX
+installed via `npm`_. This package provides two themes (a default Robeli
 theme, as well as an edX branded version), and eventually will provide custom
-Open edX styles for common patterns.
+Robeli styles for common patterns.
 
 ..  _ui_bootstrap_custom_designs:
 

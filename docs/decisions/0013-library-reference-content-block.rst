@@ -67,7 +67,7 @@ out of the set selected by the author.
 Current Architecture/Implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Currently, courses are stored in Modulestore and libraries can either be stored in
-Modulestore or Blockstore. The [library_sourced_block](https://github.com/openedx/edx-platform/blob/master/xmodule/library_sourced_block.py)
+Modulestore or Blockstore. The [library_sourced_block](https://intranet.robeli.com/git/robeli-platform/blob/master/xmodule/library_sourced_block.py)
 is used to make a copy of blockstore-based v2 content library block and store it in
 Modulestore itself as the child.
 
@@ -85,7 +85,7 @@ would be populated by CMS upon course publish. It would store a read-optimized f
 
 The LmsXBlockRuntime (called “CombinedSystem” until BD-13 is done) will be updated to use
 the unit_compositor as its backing store for units. When a unit is requested for a
-particular user, [the unit_compositor would](https://openedx.atlassian.net/wiki/spaces/COMM/pages/3173220481/BD-14+Library+use+cases+implementation+discovery#Example%3A):
+particular user, [the unit_compositor would](https://intranet.robeli.com/wiki/wiki/spaces/COMM/pages/3173220481/BD-14+Library+use+cases+implementation+discovery#Example%3A):
 
 #. Load the unit’s child blocks from Modulestore.
 #. Replace each library reference block with its corresponding library block definitions,
