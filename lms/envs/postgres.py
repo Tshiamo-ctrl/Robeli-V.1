@@ -1,5 +1,9 @@
 from .common import *  # noqa: F401,F403
 import os
+from pathlib import Path
+
+# Ensure LOCALE_PATHS is a concrete list/tuple for Django
+LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
 
 # Postgres database configuration for container/Railway runtime
 # Uses environment variables and falls back to sensible defaults
