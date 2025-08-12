@@ -122,9 +122,15 @@ CSRF_COOKIE_SECURE = _secure_cookies
 
 # Ensure Open edX events use plain booleans, not Derived values, to satisfy openedx_events validation
 try:
-    _event_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.created.v1']
-    # Default to disabled unless explicitly enabled via env
     _enable_cert_events = os.getenv('ENABLE_CERTIFICATE_EVENTS', 'false').lower() in ('1', 'true', 'yes', 'on')
-    _event_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
+    _created_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.created.v1']
+    _created_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
+except Exception:
+    pass
+
+try:
+    _enable_cert_events = os.getenv('ENABLE_CERTIFICATE_EVENTS', 'false').lower() in ('1', 'true', 'yes', 'on')
+    _revoked_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.revoked.v1']
+    _revoked_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
 except Exception:
     pass
