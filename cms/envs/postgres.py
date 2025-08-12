@@ -15,6 +15,8 @@ if 'openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig' not i
     INSTALLED_APPS.append('openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig')
 if 'openedx.core.djangoapps.bookmarks' not in INSTALLED_APPS and 'openedx.core.djangoapps.bookmarks.apps.BookmarksConfig' not in INSTALLED_APPS:
     INSTALLED_APPS.append('openedx.core.djangoapps.bookmarks')
+if 'openedx.core.djangoapps.discussions' not in INSTALLED_APPS and 'openedx.core.djangoapps.discussions.apps.DiscussionsConfig' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('openedx.core.djangoapps.discussions')
 
 DATABASES = {
     'default': {
