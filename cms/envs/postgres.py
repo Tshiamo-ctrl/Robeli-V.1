@@ -117,3 +117,11 @@ if _csrf_origins:
 _secure_cookies = os.getenv('DJANGO_SECURE_COOKIES', 'true').lower() == 'true'
 SESSION_COOKIE_SECURE = _secure_cookies
 CSRF_COOKIE_SECURE = _secure_cookies
+
+# Ensure Open edX events use plain booleans, not Derived values, to satisfy openedx_events validation
+try:
+    _event_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.created.v1']
+    _enable_cert_events = os.getenv('ENABLE_CERTIFICATE_EVENTS', 'false').lower() in ('1', 'true', 'yes', 'on')
+    _event_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
+except Exception:
+    pass
