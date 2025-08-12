@@ -5,11 +5,14 @@ from pathlib import Path
 # Ensure LOCALE_PATHS is a concrete list/tuple for Django
 LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
 
-# Enable content libraries and related apps explicitly
-INSTALLED_APPS += [
-    'openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig',
-    'openedx.core.djangoapps.content_tagging',
-]
+# Ensure required apps are present without duplicating labels
+try:
+    INSTALLED_APPS = list(INSTALLED_APPS)
+except NameError:  # pragma: no cover
+    INSTALLED_APPS = []
+
+if 'openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig')
 
 # Postgres database configuration for container/Railway runtime
 # Uses environment variables and falls back to sensible defaults
