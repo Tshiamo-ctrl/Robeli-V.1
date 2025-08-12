@@ -5,6 +5,15 @@ from pathlib import Path
 # Ensure LOCALE_PATHS is a concrete list/tuple for Django
 LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
 
+# Ensure TEMPLATES backend DIRS is a concrete list
+try:
+    for _backend in TEMPLATES:  # type: ignore[name-defined]
+        dirs = _backend.get('DIRS', [])
+        if not isinstance(dirs, (list, tuple)):
+            _backend['DIRS'] = []
+except NameError:  # pragma: no cover
+    pass
+
 # Ensure required apps are present without duplicating labels
 try:
     INSTALLED_APPS = list(INSTALLED_APPS)
