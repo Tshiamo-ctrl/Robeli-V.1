@@ -1,4 +1,4 @@
-from .aws import *  # noqa: F401,F403
+from .production import *  # noqa: F401,F403
 import os
 
 DATABASES = {

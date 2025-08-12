@@ -13,7 +13,7 @@ from openedx.core.lib.safe_lxml import defuse_xml_libs
 defuse_xml_libs()
 
 import os  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.production")
 
 # This application object is used by the development server
 # as well as any WSGI server configured to use this file.
