@@ -1,6 +1,7 @@
 from .common import *  # noqa: F401,F403
 import os
 from pathlib import Path
+import sys
 from openedx.envs.common import make_mako_template_dirs
 
 # Ensure LOCALE_PATHS is a concrete list/tuple for Django
@@ -10,7 +11,7 @@ LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
 try:
     for _backend in TEMPLATES:  # type: ignore[name-defined]
         if _backend.get('NAME') == 'mako':
-            _backend['DIRS'] = make_mako_template_dirs(globals())
+            _backend['DIRS'] = make_mako_template_dirs(sys.modules[__name__])
         else:
             dirs = _backend.get('DIRS', [])
             if not isinstance(dirs, (list, tuple)):
