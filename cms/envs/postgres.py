@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 import sys
 from openedx.envs.common import make_mako_template_dirs
+from urllib.parse import urlparse, parse_qs
 
 # Ensure LOCALE_PATHS is a concrete list/tuple for Django
 LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
@@ -51,3 +52,83 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
+
+# Allow overriding DB settings via DATABASE_URL (e.g., Railway Postgres plugin)
+DATABASE_URL = os.getenv('DATABASE_URL', '')
+if DATABASE_URL.startswith(('postgres://', 'postgresql://')):
+    try:
+        parsed = urlparse(DATABASE_URL)
+        db_name = (parsed.path or '').lstrip('/') or DATABASES['default']['NAME']
+        db_user = parsed.username or DATABASES['default']['USER']
+        db_password = parsed.password or DATABASES['default']['PASSWORD']
+        db_host = parsed.hostname or DATABASES['default']['HOST']
+        db_port = str(parsed.port or DATABASES['default']['PORT'])
+        query = parse_qs(parsed.query or '')
+        sslmode = query.get('sslmode', [DATABASES['default']['OPTIONS'].get('sslmode', 'prefer')])[0]
+        DATABASES['default'].update({
+            'NAME': db_name,
+            'USER': db_user,
+            'PASSWORD': db_password,
+            'HOST': db_host,
+            'PORT': db_port,
+        })
+        DATABASES['default'].setdefault('OPTIONS', {})
+        DATABASES['default']['OPTIONS']['sslmode'] = sslmode
+    except Exception:
+        # Fall back silently if parsing fails
+        pass
+
+# Hosts and security settings suitable for Railway reverse proxy
+
+def _parse_hosts_csv(hosts_csv: str) -> list[str]:
+    values: list[str] = []
+    for token in hosts_csv.split(','):
+        token = token.strip()
+        if not token:
+            continue
+        token = token.replace('https://', '').replace('http://', '')
+        token = token.split('/')[0]
+        values.append(token)
+    return values
+
+_raw_hosts = os.getenv('DJANGO_ALLOWED_HOSTS') or os.getenv('ALLOWED_HOSTS') or os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
+_allowed_hosts = _parse_hosts_csv(_raw_hosts) if _raw_hosts else []
+if not _allowed_hosts:
+    _allowed_hosts = ['*']
+ALLOWED_HOSTS = _allowed_hosts
+
+# Trust Railway/Heroku-style proxy headers
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+# CSRF trusted origins derived from allowed hosts (cannot include wildcards)
+_csrf_origins = []
+for _host in _allowed_hosts:
+    if _host == '*':
+        continue
+    _csrf_origins.extend([f'https://{_host}', f'http://{_host}'])
+if _csrf_origins:
+    try:
+        CSRF_TRUSTED_ORIGINS = list(set((locals().get('CSRF_TRUSTED_ORIGINS', []) or [])) | set(_csrf_origins))
+    except Exception:
+        CSRF_TRUSTED_ORIGINS = _csrf_origins
+
+# Secure cookies in hosted environments
+_secure_cookies = os.getenv('DJANGO_SECURE_COOKIES', 'true').lower() == 'true'
+SESSION_COOKIE_SECURE = _secure_cookies
+CSRF_COOKIE_SECURE = _secure_cookies
+
+# Ensure Open edX events use plain booleans, not Derived values, to satisfy openedx_events validation
+try:
+    _enable_cert_events = os.getenv('ENABLE_CERTIFICATE_EVENTS', 'false').lower() in ('1', 'true', 'yes', 'on')
+    _created_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.created.v1']
+    _created_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
+except Exception:
+    pass
+
+try:
+    _enable_cert_events = os.getenv('ENABLE_CERTIFICATE_EVENTS', 'false').lower() in ('1', 'true', 'yes', 'on')
+    _revoked_cfg = EVENT_BUS_PRODUCER_CONFIG['org.openedx.learning.certificate.revoked.v1']
+    _revoked_cfg['learning-certificate-lifecycle']['enabled'] = bool(_enable_cert_events)
+except Exception:
+    pass
