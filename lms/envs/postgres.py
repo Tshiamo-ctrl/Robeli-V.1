@@ -25,6 +25,8 @@ try:
 except NameError:  # pragma: no cover
     INSTALLED_APPS = []
 
+if 'openedx.core.djangoapps.theming.apps.ThemingConfig' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('openedx.core.djangoapps.theming.apps.ThemingConfig')
 if 'openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig' not in INSTALLED_APPS:
     INSTALLED_APPS.append('openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig')
 if 'openedx.core.djangoapps.bookmarks' not in INSTALLED_APPS and 'openedx.core.djangoapps.bookmarks.apps.BookmarksConfig' not in INSTALLED_APPS:
