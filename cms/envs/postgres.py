@@ -5,6 +5,12 @@ from pathlib import Path
 # Ensure LOCALE_PATHS is a concrete list/tuple for Django
 LOCALE_PATHS = [str(Path(REPO_ROOT) / "conf/locale")]
 
+# Enable content libraries and related apps explicitly
+INSTALLED_APPS += [
+    'openedx.core.djangoapps.content_libraries.apps.ContentLibrariesConfig',
+    'openedx.core.djangoapps.content_tagging',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
