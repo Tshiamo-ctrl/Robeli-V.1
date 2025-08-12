@@ -13,6 +13,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     build-essential curl git ca-certificates pkg-config \
     libpq-dev libpq5 libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev \
     libxmlsec1-dev libffi-dev libssl-dev \
+    default-libmysqlclient-dev libmariadb-dev libmariadb-dev-compat \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 20 (for asset builds when enabled)
@@ -31,7 +32,7 @@ COPY setup.py setup.cfg pyproject.toml* .coveragerc* mypy.ini pylintrc* /app/
 RUN python -m pip install --upgrade pip \
     && awk '!/^mysqlclient==/' requirements/edx/base.txt > /tmp/base_no_mysql.txt \
     && sed -e '/^code-annotations==/d' -e '/^codejail-includes==/d' -e '/^edx-event-bus-redis==/d' /tmp/base_no_mysql.txt > /tmp/reqs_postgres_py310.txt \
-    && pip install --prefer-binary psycopg2-binary code-annotations==1.8.2 codejail-includes==1.0.0 edx-event-bus-redis==0.5.0 \
+    && pip install --prefer-binary psycopg2-binary code-annotations==1.8.2 codejail-includes==1.0.0 edx-event-bus-redis==0.5.0 mysqlclient \
     && pip install --prefer-binary -r /tmp/reqs_postgres_py310.txt
 
 # Copy application source
