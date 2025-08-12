@@ -31,6 +31,8 @@ if 'openedx.core.djangoapps.bookmarks' not in INSTALLED_APPS and 'openedx.core.d
     INSTALLED_APPS.append('openedx.core.djangoapps.bookmarks')
 if 'openedx.core.djangoapps.discussions' not in INSTALLED_APPS and 'openedx.core.djangoapps.discussions.apps.DiscussionsConfig' not in INSTALLED_APPS:
     INSTALLED_APPS.append('openedx.core.djangoapps.discussions')
+if 'openedx.core.djangoapps.content_staging.apps.ContentStagingAppConfig' not in INSTALLED_APPS:
+    INSTALLED_APPS.append('openedx.core.djangoapps.content_staging.apps.ContentStagingAppConfig')
 
 # Postgres database configuration for container/Railway runtime
 # Uses environment variables and falls back to sensible defaults
