@@ -30,8 +30,8 @@ COPY setup.py setup.cfg pyproject.toml* .coveragerc* mypy.ini pylintrc* /app/
 # Install Python deps (runtime base)
 RUN python -m pip install --upgrade pip \
     && awk '!/^mysqlclient==/' requirements/edx/base.txt > /tmp/base_no_mysql.txt \
-    && sed '/^code-annotations==/d' /tmp/base_no_mysql.txt > /tmp/reqs_postgres_py310.txt \
-    && pip install --prefer-binary psycopg2-binary code-annotations==1.8.2 \
+    && sed -e '/^code-annotations==/d' -e '/^codejail-includes==/d' /tmp/base_no_mysql.txt > /tmp/reqs_postgres_py310.txt \
+    && pip install --prefer-binary psycopg2-binary code-annotations==1.8.2 codejail-includes==1.0.0 \
     && pip install --prefer-binary -r /tmp/reqs_postgres_py310.txt
 
 # Copy application source
