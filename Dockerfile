@@ -11,9 +11,16 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Install system deps
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     build-essential curl git ca-certificates pkg-config \
-    libpq-dev libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev \
+    libpq-dev libpq5 libxml2-dev libxslt1-dev libjpeg-dev zlib1g-dev \
     libxmlsec1-dev libffi-dev libssl-dev \
+    default-libmysqlclient-dev libmariadb-dev libmariadb-dev-compat \
     && rm -rf /var/lib/apt/lists/*
+
+# Provide flags for mysqlclient build if pkg-config entries are missing
+ENV MYSQLCLIENT_CFLAGS="-I/usr/include/mariadb -I/usr/include/mysql -I/usr/include" \
+    MYSQLCLIENT_LDFLAGS="-L/usr/lib -L/usr/lib/x86_64-linux-gnu -lmariadb -lssl -lcrypto" \
+    CFLAGS="-I/usr/include/mariadb -I/usr/include/mysql -I/usr/include ${CFLAGS}" \
+    LDFLAGS="-L/usr/lib -L/usr/lib/x86_64-linux-gnu ${LDFLAGS}"
 
 # Install Node.js 20 (for asset builds when enabled)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -28,8 +35,11 @@ COPY requirements/ ./requirements/
 COPY setup.py setup.cfg pyproject.toml* .coveragerc* mypy.ini pylintrc* /app/
 
 # Install Python deps (runtime base)
+ENV PIP_ONLY_BINARY=mysqlclient PIP_PREFER_BINARY=1
 RUN python -m pip install --upgrade pip \
-    && pip install -r requirements/edx/base.txt
+    && awk '!/^mysqlclient==/' requirements/edx/base.txt > /tmp/base_no_mysql.txt \
+    && pip install --prefer-binary psycopg2-binary \
+    && pip install --prefer-binary -r /tmp/base_no_mysql.txt
 
 # Copy application source
 COPY . /app
